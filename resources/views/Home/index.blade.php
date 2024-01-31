@@ -144,11 +144,34 @@
         </header>
     </div>
 </div>
-{{-- <div>
-    <div class="image-grid">
+{{-- <div class="collection-container">
+    <div>
         <img src="images/sea.jpg" alt="">
         <img src="images/sea.jpg" alt="">
         <img src="images/sea.jpg" alt="">
+        <span>Curator's Choice Photos</span>
+        <span>80 resources</span>
+    </div>
+    <div>
+        <img src="images/sea.jpg" alt="">
+        <img src="images/sea.jpg" alt="">
+        <img src="images/sea.jpg" alt="">
+        <span>Curator's Choice Photos</span>
+        <span>80 resources</span>
+    </div>
+    <div>
+        <img src="images/sea.jpg" alt="">
+        <img src="images/sea.jpg" alt="">
+        <img src="images/sea.jpg" alt="">
+        <span>Curator's Choice Photos</span>
+        <span>80 resources</span>
+    </div>
+    <div>
+        <img src="images/sea.jpg" alt="">
+        <img src="images/sea.jpg" alt="">
+        <img src="images/sea.jpg" alt="">
+        <span>Curator's Choice Photos</span>
+        <span>80 resources</span>
     </div>
 </div> --}}
 <div class="benefits-section">
@@ -194,37 +217,34 @@
 </div>
 <div class="first-img-line" style="margin: 40px;">
     <div class="mov-img-container">
-        <img src="images/cars.jpg"  alt="">
-        <img src="images/cars.jpg"  alt="">
-        <img src="images/cars.jpg"  alt="">
-        <img src="images/cars.jpg"  alt="">
-        <img src="images/cars.jpg"  alt="">
-        <img src="images/cars.jpg"  alt="">
-        <img src="images/cars.jpg"  alt="">
-        <img src="images/cars.jpg"  alt="">
-        <img src="images/cars.jpg"  alt="">
-        <img src="images/cars.jpg"  alt="">
-        <img src="images/cars.jpg"  alt="">
-        <img src="images/cars.jpg"  alt="">
+        <img src="https://source.unsplash.com/800x600/?random&t=<?= time() ?>" alt="Random Image 1">
+        <img src="https://source.unsplash.com/800x600/?random&t=<?= time() + 1 ?>" alt="Random Image 2">
+        <img src="https://source.unsplash.com/800x600/?random&t=<?= time() + 2 ?>" alt="Random Image 3">
+        <img src="https://source.unsplash.com/800x600/?random&t=<?= time() + 3 ?>" alt="Random Image 4">
+        <img src="https://source.unsplash.com/800x600/?random&t=<?= time() + 4 ?>" alt="Random Image 5">
+        <img src="https://source.unsplash.com/800x600/?random&t=<?= time() + 5 ?>" alt="Random Image 6">
+        <img src="https://source.unsplash.com/800x600/?random&t=<?= time() + 6 ?>" alt="Random Image 7">
+        <img src="https://source.unsplash.com/800x600/?random&t=<?= time() + 7 ?>" alt="Random Image 8">
+        <img src="https://source.unsplash.com/800x600/?random&t=<?= time() + 8 ?>" alt="Random Image 9">
+        <img src="https://source.unsplash.com/800x600/?random&t=<?= time() + 9 ?>" alt="Random Image 10">
     </div>
 </div>
 <div class="sec-img-line" style="margin: 40px;">
     <div class="mov-img-container">
-
-        <img src="images/cars.jpg"  alt="">
-        <img src="images/cars.jpg"  alt="">
-        <img src="images/cars.jpg"  alt="">
-        <img src="images/cars.jpg"  alt="">
-        <img src="images/cars.jpg"  alt="">
-        <img src="images/cars.jpg"  alt="">
-        <img src="images/cars.jpg"  alt="">
-        <img src="images/cars.jpg"  alt="">
-        <img src="images/cars.jpg"  alt="">
-        <img src="images/cars.jpg"  alt="">
-        <img src="images/cars.jpg"  alt="">
-        <img src="images/cars.jpg"  alt="">
+        <img src="https://source.unsplash.com/800x600/?random&t=<?= time() + 10 ?>" alt="Random Image 11">
+        <img src="https://source.unsplash.com/800x600/?random&t=<?= time() + 11 ?>" alt="Random Image 12">
+        <img src="https://source.unsplash.com/800x600/?random&t=<?= time() + 12 ?>" alt="Random Image 13">
+        <img src="https://source.unsplash.com/800x600/?random&t=<?= time() + 13 ?>" alt="Random Image 14">
+        <img src="https://source.unsplash.com/800x600/?random&t=<?= time() + 14 ?>" alt="Random Image 15">
+        <img src="https://source.unsplash.com/800x600/?random&t=<?= time() + 15 ?>" alt="Random Image 16">
+        <img src="https://source.unsplash.com/800x600/?random&t=<?= time() + 16 ?>" alt="Random Image 17">
+        <img src="https://source.unsplash.com/800x600/?random&t=<?= time() + 17 ?>" alt="Random Image 18">
+        <img src="https://source.unsplash.com/800x600/?random&t=<?= time() + 18 ?>" alt="Random Image 19">
+        <img src="https://source.unsplash.com/800x600/?random&t=<?= time() + 19 ?>" alt="Random Image 20">
     </div>
 </div>
+
+
 <footer style="background-color: #132f38; color: white; text-align: center; text-lg-start;">
 
     <div class="container p-4">

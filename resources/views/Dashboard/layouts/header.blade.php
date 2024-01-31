@@ -1,4 +1,4 @@
-<header class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow" data-bs-theme="dark" style="border-bottom: 0;">
+<header class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow" data-bs-theme="dark" style="border-bottom: 10px; height: 50px;">
     <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-5 text-purple" href="/">K's Gallery</a>
     <form action="/logout" method="POST">
         @csrf

@@ -364,25 +364,23 @@ margin-bottom: 10px;
     color: #fff;
     z-index: 2;
   }
-.mov-img-container img{
+  .mov-img-container {
+    display: flex;
+    overflow: hidden;
+    width: 100%; /* Sesuaikan dengan kebutuhan */
+}
+
+.mov-img-container img {
+    margin-right: 20px; /* Sesuaikan margin jika diperlukan */
+    flex-shrink: 0;
     border-radius: 10px;
     object-fit: cover;
     width: 270px;
     height: 180px;
-    margin-right: 25px;
-}
-.mov-img-container {
-    display: flex;
-}
-.mov-img-container {
-    display: flex;
-    overflow: hidden;
-}
-
-
-.mov-img-container img {
-    margin-right: 20px; /* Adjust the margin as needed */
-    flex-shrink: 0;
+    animation-duration: 16s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-play-state: running;
 }
 
 .first-img-line img {
@@ -410,6 +408,7 @@ margin-bottom: 10px;
         transform: translateX(100%);
     }
 }
+
 
 
 .first-img-line {
@@ -444,13 +443,12 @@ margin-bottom: 10px;
   .custom-btn:active span {
     transform: translateX(10px); /* Further movement when clicked */
   }
-.image-grid {
-        display: grid;
-        grid-template-columns: 2fr 1fr 1fr; /* Three columns: first takes 2/4, others take 1/4 each */
-        grid-gap: 10px; /* Adjust the gap between images */
-    }
 
-    .image-grid img {
-        width: 100%; /* Make sure images take 100% width of their respective columns */
-        height: auto; /* Maintain aspect ratio */
+    .collection-container {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px; /* Jarak antara div */
+        width: 100px;
+        height: 100px;
+      ;
     }

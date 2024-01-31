@@ -14,15 +14,19 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center gap-2 {{Request::is('dashboard/posts')? 'active' : ''}}" href="/dashboard/posts " style="color: white; transition: color 0.3s;" onmouseover="this.style.color='rgb(211, 73, 73)'" onmouseout="this.style.color='white'">
+                    <a class="nav-link d-flex align-items-center gap-2 {{ Request::is('dashboard/gallery/main') ? 'active' : '' }}"
+                       href="{{ route('dashboard.gallery.main') }}"
+                       style="color: {{ Request::is('dashboard/gallery/main') ? 'rgb(211, 73, 73)' : 'white' }}; transition: color 0.3s;"
+                       onmouseover="this.style.color='rgb(211, 73, 73)'"
+                       onmouseout="this.style.color='{{ Request::is('dashboard/gallery/main') ? 'rgb(211, 73, 73)' : 'white' }}'">
                         <svg class="bi"><use xlink:href="#file-earmark-text"/></svg>
-                        My Posts
+                        My Gallery
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center gap-2 {{Request::is('dashboard/posts')? 'active' : ''}}" href="/dashboard/posts " style="color: white; transition: color 0.3s;" onmouseover="this.style.color='rgb(211, 73, 73)'" onmouseout="this.style.color='white'">
+                    <a class="nav-link d-flex align-items-center gap-2 {{Request::is('dashboard/posts')? 'active' : ''}}" href="/dashboard/gallery/index " style="color: white; transition: color 0.3s;" onmouseover="this.style.color='rgb(211, 73, 73)'" onmouseout="this.style.color='white'">
                         <i class="bi bi-file-earmark"></i>
-                        Pages
+                        Gallery
                     </a>
                 </li>
             </ul>

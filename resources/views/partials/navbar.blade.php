@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg fixed-top hide">
-    <a class="navbar-brand" href="/home">K's</a>
+    <a class="navbar-brand" href="/">K's</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>

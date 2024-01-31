@@ -216,12 +216,16 @@
     border:none;
     border-radius: 0.25rem;
     transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+    border: none;
+    outline: none;
   }
 
   input.btn.btn--form:hover {
     background-color: rgb(52, 26, 52);
     color: black;
-    border: none
+
+    border: none;
+    outline: none;
 
   }
 

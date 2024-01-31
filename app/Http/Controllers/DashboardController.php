@@ -15,17 +15,26 @@ class DashboardController extends Controller
 
     public function upload(Request $request)
     {
+        // Validasi request
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:11000', // Sesuaikan dengan kebutuhan, di sini batasnya dinaikkan menjadi 11000 KB (11 MB)
         ]);
 
-        $imageName = time().'.'.$request->image->extension();
-        $request->image->move(public_path('uploads'), $imageName);
 
-        Image::create(['nama_file' => $imageName]);
+        // Simpan gambar ke dalam direktori storage
+        $imagePath = $request->file('image')->store('images', 'public');
 
-        return redirect()->back()->with('success', 'Gambar berhasil diupload!');
+        // Simpan informasi gambar di basis data
+        Image::create(['url' => $imagePath]);
+
+        return redirect()->route('dashboard.gallery.main')->with('success', 'Image uploaded successfully');
+
     }
+
+    public function main()
+    {
+        $images = Image::all();
+        return view('dashboard.gallery.main', compact('images'));
+    }
+
 }
-
-
