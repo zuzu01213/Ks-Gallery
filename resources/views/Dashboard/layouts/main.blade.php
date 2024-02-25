@@ -13,13 +13,18 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/dashboard/">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" integrity="sha384-y5HcDH9N2+7pDD1Hw3pPKWSItfHeY8JGTcPF3sAfFt8v6j0f0XxLd6c8UbcwYA3x" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-RjleDtrqUkaeaJ8XytncbTk5B4Qs/YyyfKwWYfXEPrEaWPMWSNEOfVEkPjKsBUWz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-eS9DDJt1a7XXqiq8ohUgdg+l5T9rmXC5zTcSe5xS4A6r6OOkJXcpXVEdGi7d9C8X" crossorigin="anonymous"></script>
 
     <style>
 
+
       body {
             font-family: 'Playfair Display', serif;
-            background-color: #fff
-
+           background-color: white;
+           /* background-color: #FAF6F0; */
         }
 
     </style>

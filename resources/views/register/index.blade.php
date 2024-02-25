@@ -25,26 +25,26 @@
     <div class="container__child signup__form">
         <form action="/register" method="post">
             @csrf
-
             <div class="form-group">
                 <label for="email">Email</label>
-                <input class="form-control" type="text" name="email" id="email" placeholder="james.bond@.com" value="{{ old('email') }}" required />
+                <input class="form-control @error('email') is-invalid @enderror" type="text" name="email" id="email" placeholder="james.bond@example.com" value="{{ old('email') }}" required autocomplete="email" />
+                @error('email')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
-
             <div class="form-group">
                 <label for="password">Password</label>
-                <input class="form-control" type="password" name="password" id="password" placeholder="********" value="{{ old('password') }}" required />
-                @if($errors->has('password'))
-                    <div class="invalid-feedback">{{ $errors->first('password') }}</div>
-                @endif
+                <input class="form-control" type="password" name="password" id="password" placeholder="Password (min. 5 characters)" required autocomplete="new-password" />
+                @error('password')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
             <small class="d-block text-center mt-3" >Already a Member? <a href="/login" class="register-link">Login</a></small>
             <input class="btn btn--form" type="submit" value="Register" />
         </form>
-
     </div>
-  </div>
 @endsection
+
 
 <style>
   body {

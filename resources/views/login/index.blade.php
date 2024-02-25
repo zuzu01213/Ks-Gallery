@@ -1,22 +1,7 @@
 @extends('layouts.main')
 
 @section('container')
-<div class="alert-container">
-    @if(session()->has('success'))
-    <div class="alert alert-dark alert-dismissible fade show" role="alert" id="successAlert">
-        {{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onclick="closeAlert('successAlert')"></button>
-    </div>
-    @endif
-</div>
-<div class="alert-container">
-    @if(session('LoginError'))
-    <div class="alert alert-danger alert-dismissible fade show" role="alert" id="loginErrorAlert">
-        {{ session('LoginError') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onclick="closeAlert('loginErrorAlert')"></button>
-    </div>
-    @endif
-</div>
+
 <body class="img js-fullheight" style="background-image: url(https://images.hdqwalls.com/wallpapers/gigi-hadid-vogue-4k-f0.jpg);">
   <div class="signup__container">
     <div class="container__child signup__thumbnail">
@@ -60,11 +45,23 @@
                 @enderror
             </div>
 
+
             <small class="d-block text-center mt-3" >Haven't Registered? <a href="/register" class="register-link">Sign Up</a></small>
             <input class="btn btn--form" type="submit" value="Login" />
         </form>
     </div>
   </div>
+  @if (session('success'))
+    <script>
+        Swal.fire({
+            title: 'Success!',
+            text: '{{ session('success') }}',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        });
+    </script>
+@endif
+
   <script>
     function closeAlert() {
         document.getElementById('successAlert').style.display = 'none';

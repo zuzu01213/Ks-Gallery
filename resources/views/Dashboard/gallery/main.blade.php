@@ -1,182 +1,322 @@
-<!-- resources/views/dashboard/index.blade.php -->
-
 @extends('dashboard.layouts.main')
-
 @section('container')
 <style>
 
     .btn-gold {
         background-color: gold;
-        color: black; /* Warna teks saat latar belakang adalah gold */
-        transition: background-color 0.3s ease, color 0.3s ease; /* Animasi transisi saat hover */
-        display: flex;
-        align-items: center;
-        margin-top: 15px;
+        color: black;
+        transition: background-color 0.3s ease, color 0.3s ease;
+
     }
 
     .btn-gold:hover {
-        background-color: darkorange; /* Warna latar belakang saat dihover */
-        color: black; /* Warna teks saat dihover */
+        background-color: darkorange;
+        color: black;
     }
 
     .btn-gold svg {
-        margin-right: 5px; /* Ruang antara ikon dan teks */
-        transition: transform 0.3s ease; /* Animasi transformasi saat hover */
+        margin-right: 5px;
+        transition: transform 0.3s ease;
     }
 
     .btn-gold:hover svg {
-    transform: translateY(-5px); /* Move the SVG up by 5 pixels */
+    transform: translateY(-5px);
 }
 
 .btn-gold .text {
-    margin-right: 8px; /* Adjust the margin as needed */
+    margin-right: 8px;
 }
 .like-container {
         cursor: pointer;
         margin: 4px;
-        transition: color 0.3s ease; /* Add color transition for smooth effect */
+        transition: color 0.3s ease;
     }
 
-    /* Style for loved button */
+
     .like-container.loved {
-        color: red; /* Change to your desired color */
+        color: red;
     }
     .modal-body {
-        max-height: 60vh; /* Set the maximum height for the comment modal body */
-        overflow-y: auto; /* Enable vertical scrolling if content exceeds the height */
+        max-height: 60vh;
+        overflow-y: auto;
     }
+    .modal-header .button-close {
+        border: none;
+    outline: none; /* Menghilangkan garis tepi (outline) saat tombol mendapatkan fokus */
+    box-shadow: none; /* Menghilangkan box-shadow yang memberikan kesan border */
+}
 </style>
+
+
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-4 pb-2 mb-3 border-bottom">
-    <h1 class="h2">All your gallery, {{ auth()->user()->name }}</h1>
+    <h1 class="h2">All of your gallery, {{ auth()->user()->name }}</h1>
 </div>
-<form action="{{ route('upload') }}" method="post" enctype="multipart/form-data">
-    @csrf
-    <div class="mb-3">
-        <label for="image" class="form-label">Upload Image:</label>
-        <input type="file" name="image" id="image" class="form-control" accept="image/*" onchange="previewImage(this)">
+<div class="row">
+    <div class="col-md-6">
+        <button type="button" class="btn btn-warning mb-3" data-bs-toggle="modal" data-bs-target="#chooseImageModal" style="cursor: pointer; background-color: #116D6E; border: 1px solid black;">
+            All (Images)
+        </button>
+        <button type="button" class="btn btn-warning mb-3" style="cursor: text; background-color: #CD1818;">Upload Available: 10</button>
+        <!-- Button to trigger modal -->
+        <button type="button" class="btn btn-gold mb-3" data-bs-toggle="modal" data-bs-target="#chooseImageModal">
+            <span class="text">Upload Files</span>
+            <span class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-upload" viewBox="0 0 16 16">
+                    <path d="M8.794 1.354a.5.5 0 0 1 .5.5V12a.5.5 0 1 1-1 0V1.854a.5.5 0 0 1 1 0V12a1.5 1.5 0 0 0 3 0V2.5a.5.5 0 0 1 1 0V12a2.5 2.5 0 0 1-5 0V1.854a.5.5 0 0 1 .5-.5zM0 14a.5.5 0 0 1 .5-.5h15a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5z"/>
+                </svg>
+            </span>
+        </button>
     </div>
-    <img id="image-preview" src="#" alt="Image Preview" style="max-width: 200px; display: none; border-radius: 10px;">
-    <button type="submit" class="btn btn-gold">
-        <span class="text">Upload Files</span>
-        <span class="icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-upload" viewBox="0 0 16 16">
-                <path d="M8.794 1.354a.5.5 0 0 1 .5.5V12a.5.5 0 1 1-1 0V1.854a.5.5 0 0 1 1 0V12a1.5 1.5 0 0 0 3 0V2.5a.5.5 0 0 1 1 0V12a2.5 2.5 0 0 1-5 0V1.854a.5.5 0 0 1 .5-.5zM0 14a.5.5 0 0 1 .5-.5h15a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5z"/>
-            </svg>
-        </span>
-    </button>
-</form>
+
+    <div class="col-md-6 ms-auto">
+        <div class="input-group mb-3 justify-content-end">
+            <div class="col-3" style="margin-right: 5px;">
+                <select class="form-select custom-input" name="category" aria-label="Select Category" style="width: 130px; margin-right: 20px;">
+                    <option value="">Select Categories</option>
+                    <!-- Add your categories options here -->
+                </select>
+            </div>
+            <div class="col-5">
+                <input type="text" class="form-control custom-input" placeholder="My cars image.." name="search" value="{{ request('search') }}" style="border: 1px solid black">
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-outline-secondary custom-btn" style="background-color: black; color: white;" type="submit">Search</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="d-flex justify-content-between mb-0">
+    <div class="col-md-6">
+        <form   class="d-flex">
+            {{-- @csrf
+            @method('delete') --}}
+        <button type="button" class="btn btn-warning mb-3" style="cursor: text; background-color: navy; border:none; color: white;">
+            Publish
+        </button>
+        <button type="button" class="btn btn-warning mb-3" style="cursor: text; background-color: navy; color: white; margin-left:3px; border:none">
+            Revert to draft
+        </button>
+        <button type="button" class="btn btn-danger mb-3" id="toggleSelection" style="background-color: navy; color: white; margin-left:3px; border:none">
+            Select Post
+        </button>
+        <button type="button" class="btn btn-danger mb-3" id="deleteSelected" style="color: white; display: none; margin-left:3px; border:none">
+            Delete Selected
+        </button>
+        </form>
+    </div>
+    <span style="font-size: 18px; font-weight: bold;" > </span>
+    <div>
+        <select>
+
+            <option >
+                All
+            </option>
+        </select>
+    </div>
+</div>
+@include('dashboard.gallery.chooseimagemodal')
+
 @if(session('success'))
-    <div class="alert alert-success mt-3">
+    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert" id="successAlert">
         {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 @endif
 
+
+
 <div class="row mt-4">
     @foreach($images as $image)
-    <div class="col-md-4 mb-3">
-        <div class="card">
-            <img src="{{ asset('storage/' . $image->url) }}" class="card-img-top" alt="Image">
-            <div class="card-body">
-                <div class="like-container" data-image-id="{{ $image->id }}" data-like-count="{{ $image->likes_count }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="bi bi-heart" style="vertical-align: text-top; margin-right: 8px;">
-                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C15.09 3.81 16.76 3 18.5 3 21.58 3 24 5.42 24 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                    </svg>
-                    <span class="like-count">{{ $image->likes_count }}</span>
-                </div>
-
-                <button class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#commentModal{{ $image->id }}">
-                    Comment
-                </button>
-            </div>
-        </div>
-    </div>
-
-        <!-- Comment Modal -->
-        <div class="modal fade" id="commentModal{{ $image->id }}" tabindex="-1" aria-labelledby="commentModalLabel{{ $image->id }}" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="commentModalLabel{{ $image->id }}">Comments</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <!-- Comment Form -->
-                        <form action="{{ route('comment', ['image' => $image->id]) }}" method="post">
-
-                            @csrf
-                            <div class="mb-3">
-                                <label for="comment_text" class="form-label">Write your comment:</label>
-                                <textarea name="comment_text" id="comment_text" class="form-control" rows="3"></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Post Comment</button>
-                        </form>
-
-                        <!-- Display existing comments -->
-                        <ul class="list-group mt-3">
-                            @foreach($image->comments as $comment)
-                                <li class="list-group-item">
-                                    <strong>{{ $comment->user_name }}</strong>: {{ $comment->comment_text }}
-                                </li>
-                            @endforeach
-                        </ul>
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <img src="{{ asset('storage/' . $image->url) }}" alt="{{ $image->title }}">
+                <div class="card-body">
+                    <h5 style="font-size: 20px, margin: 9px">{{ $image->title }}</h4>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-md btn-outline-primary" data-bs-toggle="modal" data-bs-target="#viewImageModal{{ $image->id }}">
+                                View
+                            </button>
+                            <button type="button" class="btn btn-md btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editImageModal{{ $image->id }}">
+                                Edit
+                            </button>
+                            <form action="{{ route('dashboard.destroy', ['id' => $image->id]) }}" method="post" id="deleteForm{{ $image->id }}">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-md btn-outline-danger" onclick="confirmDelete(event, '{{ $image->id }}')" type="button" style="border-top-left-radius: 0; border-bottom-left-radius: 0;">
+                                    Delete
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
+
     @endforeach
 </div>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        document.querySelectorAll('.like-container').forEach(function (container) {
-            const likeCountElement = container.querySelector('.like-count');
+   function uploadFiles() {
+    if (!validateForm()) {
+        return; // Exit if form validation fails
+    }
 
-            let currentCount = parseInt(container.dataset.likeCount) || 0;
-            likeCountElement.innerText = currentCount;
+    var form = document.getElementById('uploadForm');
+    var formData = new FormData(form);
 
-            container.addEventListener('click', function () {
-                const imageId = container.dataset.imageId;
+    $.ajax({
+        url: form.action,
+        method: form.method,
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            console.log(response);
+            // Optionally, close the modal or show a success message
+            $('#chooseImageModal').modal('hide');
 
-                // Simulate AJAX logic to update the like count
-                const isLiked = container.classList.toggle('loved');
-                currentCount = isLiked ? currentCount + 1 : currentCount - 1;
-                likeCountElement.innerText = currentCount;
+            // Show a success message
+            showMessage('success', 'Files uploaded successfully!');
 
-                // TODO: Perform an actual AJAX request to update the like count on the server
-                // You can use the imageId and isLiked variables to send the necessary data to the server
-                // Example: sendLikeRequest(imageId, isLiked);
+            // Use SweetAlert's onClose event to handle removing the backdrop
+            Swal.fire({
+                title: 'Success',
+                text: 'Files uploaded successfully!',
+                icon: 'success',
+                onClose: function () {
+                    // Remove modal backdrop manually
+                    $('body').removeClass('modal-open');
+                    $('.modal-backdrop').remove();
+                }
             });
-        });
-    });
-    function previewImage(input) {
-        var preview = document.getElementById('image-preview');
-        var file = input.files[0];
-        var reader = new FileReader();
+        },
+        error: function (error) {
+            console.error('Error:', error);
+            var errorMessage = 'Failed to upload files.';
 
-        reader.onload = function(e) {
-            preview.src = e.target.result;
-            preview.style.display = 'block';
-        };
-
-        if (file) {
-            // Check if the file size is within the allowed limit (10 MB)
-            if (file.size > 1024 * 1024 * 10) {
-                alert('File size exceeds the allowed limit (10 MB). Please choose a smaller file.');
-                input.value = ''; // Clear the selected file
-                preview.src = '#';
-                preview.style.display = 'none';
-            } else {
-                reader.readAsDataURL(file);
+            if (error.status === 422) {
+                // If there are validation errors on the server side
+                var errors = error.responseJSON.errors;
+                errorMessage += '<ul>';
+                for (var key in errors) {
+                    errorMessage += '<li>' + errors[key][0] + '</li>';
+                }
+                errorMessage += '</ul>';
             }
-        } else {
-            preview.src = '#';
-            preview.style.display = 'none';
+
+            Swal.fire('Error', errorMessage, 'error');
         }
+    });
+}
+
+function confirmDelete(event, imageId) {
+    event.preventDefault(); // Prevent default form submission
+
+    Swal.fire({
+        title: 'Are you sure?',
+        text: 'You won\'t be able to revert this!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // If the user chooses 'Yes', submit the deletion form
+            document.getElementById('deleteForm' + imageId).submit();
+        }
+    });
+}
+
+
+function validateForm() {
+    // Perform form validation here
+    var titleInput = document.getElementById('titleInput').value;
+    var imageInput = document.getElementById('image').value;
+
+    if (titleInput.trim() === '' || imageInput.trim() === '') {
+        alert('Please fill in all required fields.');
+        return false;
+    }
+
+    return true;
+}
+
+function previewImage() {
+    var input = document.getElementById('image');
+    var preview = document.getElementById('imagePreview');
+    var file = input.files[0];
+    var reader = new FileReader();
+
+    reader.onloadend = function () {
+        preview.src = reader.result;
+        preview.style.display = 'block';
+    };
+
+    if (file) {
+        reader.readAsDataURL(file);
+    } else {
+        preview.src = '';
+        preview.style.display = 'none';
+    }
+}
+
+// Call previewImage() when the page is loaded to match the initial status
+document.addEventListener('DOMContentLoaded', function () {
+    previewImage();
+});
+
+// Assuming you have an event listener for form submission
+document.getElementById('uploadForm').addEventListener('submit', function (event) {
+    event.preventDefault(); // Prevent default form submission
+    uploadFiles(); // Call your upload function
+});
+
+// Assuming you have an event listener for delete button click
+document.getElementById('deleteButton').addEventListener('click', function () {
+    var title = 'Title'; // Provide the title dynamically if needed
+    var imageId = '123'; // Provide the image ID dynamically if needed
+    confirmDelete(title, imageId); // Call your delete confirmation function
+});
+
+function uploadFiles() {
+    var form = document.getElementById('uploadForm');
+    var formData = new FormData(form);
+
+    $.ajax({
+        url: form.action,
+        method: form.method,
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            console.log(response);
+
+            // Reload the page after successful upload
+            location.reload();
+
+            // Show a success message
+            Swal.fire('Success', 'Files uploaded successfully!', 'success');
+        },
+        error: function (error) {
+            console.error(error);
+
+            // Show an error message
+            Swal.fire('Error', 'Failed to upload files', 'error');
+        }
+    });
+}
+
+function showImage(imageUrl) {
+        var imgElement = document.getElementById('viewImage');
+        imgElement.src = imageUrl;
     }
 </script>
 
-
-<!-- ... (remaining HTML code) ... -->
 
 
 @endsection

@@ -126,7 +126,25 @@
     </div>
 </section>
 </main>
-
+@auth
+<div class="premium-ad-container" id="premiumAdContainer">
+    <div class="premium-ad-content">
+        <span class="close-button" onclick="closePremiumAd()">X</span>
+        <div class="ad-text-content">
+            <p class="title">
+                <strong>
+                    <span class="percent_test hide_text_mobile banner_h1_text">Think big, create bigger</span>
+                </strong>
+            </p>
+            <p class="text_test hide_text_mobile banner_h2_text" style="color: #808080; font-size: 14px;">Rule your creativity with 35%OFF</p>
+            <p class="text_test country_text_margin banner_h3_text" style="color: #808080; font-size: 14px;">The discount is applicable in your country only</p>
+            <a href="#" class="premium-button">Go Premium</a>
+        </div>
+        <!-- Premium ad content -->
+        <img class="premium-ad-image" src="https://freepik.cdnpk.net/img/banner/microfunnel-flaticon.png" alt="Freepik Microfunnel">
+    </div>
+</div>
+@endauth
 <div style="display: flex; justify-content: flex-start; align-items: flex-start; margin: 100px;">
     <div style="text-align: left;">
         <header>
@@ -279,6 +297,7 @@
     <!-- Copyright -->
   </footer>
 </body>
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
     var menuItems = document.querySelectorAll('.menu-item');
@@ -317,6 +336,16 @@ document.addEventListener('DOMContentLoaded', function() {
     video.controls = false; // Remove controls
     video.play();
   });
+  function closePremiumAd() {
+    document.querySelector('.premium-ad-container').style.display = 'none';
+}
+setTimeout(function() {
+    var premiumAdContainer = document.getElementById('premiumAdContainer');
+    if (premiumAdContainer) {
+        premiumAdContainer.classList.add('show');
+    }
+}, 10000); // 10 seconds
+
 </script>
 
 </html>

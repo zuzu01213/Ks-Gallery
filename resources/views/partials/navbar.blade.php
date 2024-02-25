@@ -24,7 +24,7 @@
                 <a class="nav-link" href="{{ route('pricing.index') }}">Pricing</a>
             </li>
             <li class="nav-item {{ request()->is('my-project') ? 'active' : '' }}">
-                <a class="nav-link" href="http://coba-laravel-2.test/3?jumlahProduk=10&generateButton=#" target="_blank">My Project</a>
+                <a class="nav-link" href="http://unpas-laravel.test" target="_blank">K's Blog</a>
             </li>
 
         </ul>

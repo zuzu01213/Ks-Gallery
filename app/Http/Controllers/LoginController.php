@@ -17,37 +17,37 @@ class LoginController extends Controller
 
     public function authenticate(Request $request)
     {
-        $request->validate([
-            // 'username' => 'required',
+        $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
-            // 'passwordRepeat' => 'required|same:password',
         ]);
-
-        $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             return redirect()->intended('/dashboard');
         }
-        return back()->with('LoginError', 'Login failed!');
 
-        // return back()->withErrors([
-        //     'email' => 'The provided credentials do not match our records.',
-        //     'passwordRepeat' => 'The provided credentials do not match our records.',
-        // ]);
+        $userExists = \App\Models\User::where('email', $credentials['email'])->exists();
 
+        if ($userExists) {
+            return back()->withErrors([
+                'password' => 'The password provided is incorrect.',
+            ])->withInput();
+        } else {
+            return back()->withErrors([
+                'email' => 'The provided email does not exist.',
+            ])->withInput();
+        }
     }
-    public function logout(){
 
+
+    public function logout(Request $request)
+    {
         Auth::logout();
 
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
-        request()->session()->invalidate();
-        request()->session()->regenerateToken();
-
-        RETURN REDIRECT('/');
-
+        return redirect('/');
     }
-
 }

@@ -4,6 +4,8 @@
 
 namespace App\Models;
 
+// app/Models/Image.php
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,8 +13,8 @@ class Image extends Model
 {
     use HasFactory;
 
-    // Kolom-kolom yang dapat diisi secara massal
-    protected $fillable = ['title', 'description', 'url'];
+    // Columns that can be mass assigned
+    protected $fillable = ['title', 'description', 'url', ];
 
     /**
      * Get the likes for the image.
