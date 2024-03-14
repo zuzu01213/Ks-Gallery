@@ -1,322 +1,208 @@
 @extends('dashboard.layouts.main')
+
 @section('container')
-<style>
-
-    .btn-gold {
-        background-color: gold;
-        color: black;
-        transition: background-color 0.3s ease, color 0.3s ease;
-
-    }
-
-    .btn-gold:hover {
-        background-color: darkorange;
-        color: black;
-    }
-
-    .btn-gold svg {
-        margin-right: 5px;
-        transition: transform 0.3s ease;
-    }
-
-    .btn-gold:hover svg {
-    transform: translateY(-5px);
-}
-
-.btn-gold .text {
-    margin-right: 8px;
-}
-.like-container {
-        cursor: pointer;
-        margin: 4px;
-        transition: color 0.3s ease;
-    }
-
-
-    .like-container.loved {
-        color: red;
-    }
-    .modal-body {
-        max-height: 60vh;
-        overflow-y: auto;
-    }
-    .modal-header .button-close {
-        border: none;
-    outline: none; /* Menghilangkan garis tepi (outline) saat tombol mendapatkan fokus */
-    box-shadow: none; /* Menghilangkan box-shadow yang memberikan kesan border */
-}
-</style>
-
+@yield('content')
+<head>
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    <script src="{{ asset('js/gallery.js') }}"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+</head>
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-4 pb-2 mb-3 border-bottom">
     <h1 class="h2">All of your gallery, {{ auth()->user()->name }}</h1>
 </div>
+
 <div class="row">
     <div class="col-md-6">
-        <button type="button" class="btn btn-warning mb-3" data-bs-toggle="modal" data-bs-target="#chooseImageModal" style="cursor: pointer; background-color: #116D6E; border: 1px solid black;">
-            All (Images)
+        <!-- Buttons for uploading images -->
+        <button id="userImagesButton" type="button" class="btn btn-warning mb-3" style="cursor: pointer; background-color: #116D6E; border: 1px solid black; ">
+            All Images ({{ $images->total() }} )
         </button>
-        <button type="button" class="btn btn-warning mb-3" style="cursor: text; background-color: #CD1818;">Upload Available: 10</button>
-        <!-- Button to trigger modal -->
-        <button type="button" class="btn btn-gold mb-3" data-bs-toggle="modal" data-bs-target="#chooseImageModal">
+        <!-- Available upload count -->
+        @php
+            $userImagesCount = auth()->user()->images()->count();
+            $remainingUploads = max(0, 20 - $userImagesCount);
+            $pagination = ceil($remainingUploads / 20); // Assuming each page has 20 uploads
+        @endphp
+
+        <button type="button" class="btn btn-warning mb-3" style="cursor: text; background-color: #CD1818; ">Upload Available: {{ $remainingUploads }}</button>
+
+        <!-- Button to trigger upload file modal -->
+        <button type="button" class="btn btn-gold mb-3" data-bs-toggle="modal" data-bs-target="{{ auth()->check() && auth()->user()->isBasicMember() && auth()->user()->images()->count() >= 20 ? '#upgradeModal' : '#chooseImageModal' }}">
             <span class="text">Upload Files</span>
             <span class="icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-upload" viewBox="0 0 16 16">
-                    <path d="M8.794 1.354a.5.5 0 0 1 .5.5V12a.5.5 0 1 1-1 0V1.854a.5.5 0 0 1 1 0V12a1.5 1.5 0 0 0 3 0V2.5a.5.5 0 0 1 1 0V12a2.5 2.5 0 0 1-5 0V1.854a.5.5 0 0 1 .5-.5zM0 14a.5.5 0 0 1 .5-.5h15a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5z"/>
+                    <path d="M8.794 1.354a.5.5 0 0 1 .5.5V12a.5.5 0 1 1-1 0V1.854a.5.5 0 0 1 .5-0zM0 14a.5.5 0 0 1 .5-.5h15a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5z"/>
                 </svg>
             </span>
+
         </button>
     </div>
 
-    <div class="col-md-6 ms-auto">
-        <div class="input-group mb-3 justify-content-end">
-            <div class="col-3" style="margin-right: 5px;">
-                <select class="form-select custom-input" name="category" aria-label="Select Category" style="width: 130px; margin-right: 20px;">
+    <div class="col-md-6">
+        <!-- Form for searching images -->
+        <form method="GET" class="input-group mb-3 justify-content-end">
+            <div class="col-3">
+                <!-- Category selection -->
+                <select class="form-select custom-input" name="category_id" aria-label="Select Category" style="width: 130px;">
                     <option value="">Select Categories</option>
-                    <!-- Add your categories options here -->
+                    <!-- Categories options -->
+                    @foreach($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="col-5">
-                <input type="text" class="form-control custom-input" placeholder="My cars image.." name="search" value="{{ request('search') }}" style="border: 1px solid black">
+                <!-- Search input -->
+                <input type="text" id="searchInput" class="form-control custom-input" placeholder="Search for images..." name="search">
             </div>
-            <div class="col-auto">
-                <button class="btn btn-outline-secondary custom-btn" style="background-color: black; color: white;" type="submit">Search</button>
+
+
+            <div class="col-1.5">
+                <!-- Search button -->
+                <button type="submit" class="btn btn-secondary">Search</button>
             </div>
-        </div>
-    </div>
-</div>
-<div class="d-flex justify-content-between mb-0">
-    <div class="col-md-6">
-        <form   class="d-flex">
-            {{-- @csrf
-            @method('delete') --}}
-        <button type="button" class="btn btn-warning mb-3" style="cursor: text; background-color: navy; border:none; color: white;">
-            Publish
-        </button>
-        <button type="button" class="btn btn-warning mb-3" style="cursor: text; background-color: navy; color: white; margin-left:3px; border:none">
-            Revert to draft
-        </button>
-        <button type="button" class="btn btn-danger mb-3" id="toggleSelection" style="background-color: navy; color: white; margin-left:3px; border:none">
-            Select Post
-        </button>
-        <button type="button" class="btn btn-danger mb-3" id="deleteSelected" style="color: white; display: none; margin-left:3px; border:none">
-            Delete Selected
-        </button>
         </form>
     </div>
-    <span style="font-size: 18px; font-weight: bold;" > </span>
-    <div>
-        <select>
+</div>
 
-            <option >
-                All
-            </option>
+<!-- Buttons for actions -->
+<div class="d-flex justify-content-between mb-0">
+    <div class="col-md-6">
+        <!-- Form to revert to draft -->
+        <form class="d-inline-block ml-2" >
+            @csrf
+            <button type="submit" class="btn btn-secondary mb-3" style="border: none; color: white;">
+                Revert to Draft
+            </button>
+        </form>
+        <!-- Form to publish with glowing dot -->
+        <form class="d-inline-block" >
+            @csrf
+            <button type="submit" class="btn btn-warning mb-3" style="background-color: navy; border: none; color: white; position: relative;">
+                Publish
+                <span class="glowing-dot"></span>
+            </button>
+        </form>
+            <form action="{{ route('dashboard.destroySelected') }}" method="POST" class="d-inline-block" id="deleteAllForm">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger mb-3" id="deleteAllBtn" style="border: none; color: white; display: none;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                        <path d="M3.5 5.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5V6h-9v-.5zm9-1V3H4v1.5a.5.5 0 0 1-1 0V3a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v1.5a.5.5 0 0 1-1 0zM5 9a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 .5-.5V7a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0-.5.5v2zm6.5 1a.5.5 0 0 1-.5.5H5a.5.5 0 0 1-.5-.5V7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 .5.5V10z"/>
+                    </svg>
+                    Delete All
+                </button>
+            </form>
+    </div>
+
+    <div>
+        <!-- Select options for filtering images -->
+        <select id="selectOptions">
+            <option value="default">default</option>
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+            <option value="25">25</option>
+            <option value="all">All</option>
         </select>
     </div>
 </div>
+
+<!-- Include the modal for choosing images -->
 @include('dashboard.gallery.chooseimagemodal')
 
+<!-- Display success message if available -->
 @if(session('success'))
-    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert" id="successAlert">
-        {{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
+<div id="alert" class="alert alert-dark alert-dismissible fade show" role="alert">
+    {{ session('success') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
 @endif
 
+<!-- Display images -->
+@if ($images->count() > 0)
+    <div class="row row-cols-5 mt-4">
+        @foreach($images as $image)
+            <div class="col mb-3">
+                <!-- Display image -->
+                <div class="card position-relative">
+                    <img src="{{ asset('storage/' . $image->url) }}" alt="{{ $image->title }}" class="card-img-top" style="cursor: pointer">
+                    <div class="card-body">
+                        <!-- Add checkbox for image selection -->
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input image-checkbox" id="imageCheck{{ $image->id }}" data-image-id="{{ $image->id }}" style="transform: scale(1.5);">
+                            <label class="form-check-label truncated-title" for="imageCheck{{ $image->id }}">{{ $image->title }}</label>
+                        </div>
 
+                        <!-- Display status label -->
+                        <div class="status-label">
+                            <span class="badge" style="background-color: #116D6E">{{ ucfirst($image->status) }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-2">
+                            <div class="btn-group">
+                                <!-- Buttons for view, edit, and delete -->
+                                <button type="button" id="viewBtn" class="btn btn-md btn-outline-primary" data-bs-toggle="modal" data-bs-target="#viewImageModal{{ $image->id }}">
+                                    <!-- View Icon SVG -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                                        <path d="M7.998 2c3.313 0 6 2.687 6 6s-2.687 6-6 6-6-2.687-6-6 2.687-6 6-6zM8 1C4.14 1 1 4.14 1 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm0 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+                                    </svg>
+                                    View
+                                </button>
 
-<div class="row mt-4">
-    @foreach($images as $image)
-        <div class="col-md-4 mb-3">
-            <div class="card">
-                <img src="{{ asset('storage/' . $image->url) }}" alt="{{ $image->title }}">
-                <div class="card-body">
-                    <h5 style="font-size: 20px, margin: 9px">{{ $image->title }}</h4>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-md btn-outline-primary" data-bs-toggle="modal" data-bs-target="#viewImageModal{{ $image->id }}">
-                                View
-                            </button>
-                            <button type="button" class="btn btn-md btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editImageModal{{ $image->id }}">
-                                Edit
-                            </button>
-                            <form action="{{ route('dashboard.destroy', ['id' => $image->id]) }}" method="post" id="deleteForm{{ $image->id }}">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-md btn-outline-danger" onclick="confirmDelete(event, '{{ $image->id }}')" type="button" style="border-top-left-radius: 0; border-bottom-left-radius: 0;">
+                                <button type="button"  id="editBtn"  class="btn btn-md btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editImageModal{{ $image->id }}">
+                                    <!-- Edit Icon SVG -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                        <path d="M12.354 1.146a1.5 1.5 0 0 1 2.122 2.122l-10 10a1.5 1.5 0 0 1-2.122-2.122l10-10zM11 4.732l1.768 1.768-8.414 8.414-1.768-1.768L11 4.732zM13.5 3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h.5a.5.5 0 0 0 .5-.5v-10a.5.5 0 0 0-.5-.5z"/>
+                                    </svg>
+                                    Edit
+                                </button>
+
+                                <button type="button"  id="deleteBtn"  class="btn btn-md btn-outline-danger delete-btn" data-image-id="{{ $image->id }}">
+                                    <!-- Delete Icon SVG -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                        <path d="M3.5 5.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5V6h-9v-.5zm9-1V3H4v1.5a.5.5 0 0 1-1 0V3a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v1.5a.5.5 0 0 1-1 0zM5 9a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 .5-.5V7a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0-.5.5v2zm6.5 1a.5.5 0 0 1-.5.5H5a.5.5 0 0 1-.5-.5V7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 .5.5V10z"/>
+                                    </svg>
                                     Delete
                                 </button>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        @endforeach
+    </div>
+    <!-- Custom Pagination Links -->
+    <div class="mt-3">
+        <ul id="paginationLinks" class="pagination justify-content">
+            @if ($images->currentPage() > 1)
+                <li class="page-item">
+                    <a class="page-link" href="{{ $images->previousPageUrl() }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+            @endif
 
+            @for ($i = 1; $i <= $images->lastPage(); $i++)
+                <li class="page-item {{ $i == $images->currentPage() ? 'active' : '' }}">
+                    <a class="page-link" href="{{ $images->url($i) }}">{{ $i }}</a>
+                </li>
+            @endfor
 
-    @endforeach
-</div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-   function uploadFiles() {
-    if (!validateForm()) {
-        return; // Exit if form validation fails
-    }
-
-    var form = document.getElementById('uploadForm');
-    var formData = new FormData(form);
-
-    $.ajax({
-        url: form.action,
-        method: form.method,
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function (response) {
-            console.log(response);
-            // Optionally, close the modal or show a success message
-            $('#chooseImageModal').modal('hide');
-
-            // Show a success message
-            showMessage('success', 'Files uploaded successfully!');
-
-            // Use SweetAlert's onClose event to handle removing the backdrop
-            Swal.fire({
-                title: 'Success',
-                text: 'Files uploaded successfully!',
-                icon: 'success',
-                onClose: function () {
-                    // Remove modal backdrop manually
-                    $('body').removeClass('modal-open');
-                    $('.modal-backdrop').remove();
-                }
-            });
-        },
-        error: function (error) {
-            console.error('Error:', error);
-            var errorMessage = 'Failed to upload files.';
-
-            if (error.status === 422) {
-                // If there are validation errors on the server side
-                var errors = error.responseJSON.errors;
-                errorMessage += '<ul>';
-                for (var key in errors) {
-                    errorMessage += '<li>' + errors[key][0] + '</li>';
-                }
-                errorMessage += '</ul>';
-            }
-
-            Swal.fire('Error', errorMessage, 'error');
-        }
-    });
-}
-
-function confirmDelete(event, imageId) {
-    event.preventDefault(); // Prevent default form submission
-
-    Swal.fire({
-        title: 'Are you sure?',
-        text: 'You won\'t be able to revert this!',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            // If the user chooses 'Yes', submit the deletion form
-            document.getElementById('deleteForm' + imageId).submit();
-        }
-    });
-}
-
-
-function validateForm() {
-    // Perform form validation here
-    var titleInput = document.getElementById('titleInput').value;
-    var imageInput = document.getElementById('image').value;
-
-    if (titleInput.trim() === '' || imageInput.trim() === '') {
-        alert('Please fill in all required fields.');
-        return false;
-    }
-
-    return true;
-}
-
-function previewImage() {
-    var input = document.getElementById('image');
-    var preview = document.getElementById('imagePreview');
-    var file = input.files[0];
-    var reader = new FileReader();
-
-    reader.onloadend = function () {
-        preview.src = reader.result;
-        preview.style.display = 'block';
-    };
-
-    if (file) {
-        reader.readAsDataURL(file);
-    } else {
-        preview.src = '';
-        preview.style.display = 'none';
-    }
-}
-
-// Call previewImage() when the page is loaded to match the initial status
-document.addEventListener('DOMContentLoaded', function () {
-    previewImage();
-});
-
-// Assuming you have an event listener for form submission
-document.getElementById('uploadForm').addEventListener('submit', function (event) {
-    event.preventDefault(); // Prevent default form submission
-    uploadFiles(); // Call your upload function
-});
-
-// Assuming you have an event listener for delete button click
-document.getElementById('deleteButton').addEventListener('click', function () {
-    var title = 'Title'; // Provide the title dynamically if needed
-    var imageId = '123'; // Provide the image ID dynamically if needed
-    confirmDelete(title, imageId); // Call your delete confirmation function
-});
-
-function uploadFiles() {
-    var form = document.getElementById('uploadForm');
-    var formData = new FormData(form);
-
-    $.ajax({
-        url: form.action,
-        method: form.method,
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function (response) {
-            console.log(response);
-
-            // Reload the page after successful upload
-            location.reload();
-
-            // Show a success message
-            Swal.fire('Success', 'Files uploaded successfully!', 'success');
-        },
-        error: function (error) {
-            console.error(error);
-
-            // Show an error message
-            Swal.fire('Error', 'Failed to upload files', 'error');
-        }
-    });
-}
-
-function showImage(imageUrl) {
-        var imgElement = document.getElementById('viewImage');
-        imgElement.src = imageUrl;
-    }
-</script>
-
-
+            @if ($images->hasMorePages())
+                <li class="page-item">
+                    <a class="page-link" href="{{ $images->nextPageUrl() }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+            @endif
+        </ul>
+    </div>
+@else
+    <p class="text-center" style="font-size: 1.5rem;">No images found.</p>
+@endif
 
 @endsection

@@ -21,7 +21,7 @@
                 <a class="nav-link" href="/pricing/">Categories</a>
             </li>
             <li class="nav-item {{ request()->is('pricing') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('pricing.index') }}">Pricing</a>
+                <a class="nav-link" href="{{ route('pricing.index') }}">Premium</a>
             </li>
             <li class="nav-item {{ request()->is('my-project') ? 'active' : '' }}">
                 <a class="nav-link" href="http://unpas-laravel.test" target="_blank">K's Blog</a>

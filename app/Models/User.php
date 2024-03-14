@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 
 class User extends Authenticatable
 {
@@ -46,6 +47,10 @@ class User extends Authenticatable
      *
      * @return bool
      */
+    public function images()
+    {
+        return $this->hasMany(Image::class);
+    }
     public function isAdmin(): bool
     {
         return $this->role === 'admin';

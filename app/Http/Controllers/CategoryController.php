@@ -7,21 +7,15 @@ use App\Models\Category;
 
 class CategoryController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth'); // Require authentication for all CategoryController actions
-        $this->middleware('role:admin,operator')->except('index', 'show'); // Allow only admin and operator for certain actions
-    }
-
     public function index()
     {
         $categories = Category::all();
-        return view('categories.index', compact('categories'));
+        return view('dashboard.admin.categories.index', compact('categories'));
     }
 
     public function create()
     {
-        return view('categories.create');
+        return view('dashboard.admin.categories.create');
     }
 
     public function store(Request $request)
@@ -32,18 +26,12 @@ class CategoryController extends Controller
 
         Category::create($request->all());
 
-        return redirect()->route('categories.index')
-            ->with('success', 'Category created successfully');
-    }
-
-    public function show(Category $category)
-    {
-        return view('categories.show', compact('category'));
+        return redirect()->route('categories.index')->with('success', 'Category created successfully');
     }
 
     public function edit(Category $category)
     {
-        return view('categories.edit', compact('category'));
+        return view('dashboard.admin.categories.edit', compact('category'));
     }
 
     public function update(Request $request, Category $category)
@@ -54,15 +42,13 @@ class CategoryController extends Controller
 
         $category->update($request->all());
 
-        return redirect()->route('categories.index')
-            ->with('success', 'Category updated successfully');
+        return redirect()->route('categories.index')->with('success', 'Category updated successfully');
     }
 
     public function destroy(Category $category)
     {
         $category->delete();
 
-        return redirect()->route('categories.index')
-            ->with('success', 'Category deleted successfully');
+        return redirect()->route('categories.index')->with('success', 'Category deleted successfully');
     }
 }

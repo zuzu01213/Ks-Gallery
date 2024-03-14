@@ -1,10 +1,6 @@
 <?php
 
-
-
 namespace App\Models;
-
-// app/Models/Image.php
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,30 +9,53 @@ class Image extends Model
 {
     use HasFactory;
 
-    // Columns that can be mass assigned
-    protected $fillable = ['title', 'description', 'url', ];
+    protected $fillable = ['title', 'description', 'url', 'category_id', 'user_id', 'status'];
 
-    /**
-     * Get the likes for the image.
-     */
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
     public function likes()
     {
         return $this->hasMany(Like::class);
     }
 
-    /**
-     * Get the comments for the image.
-     */
     public function comments()
     {
         return $this->hasMany(Comment::class);
     }
 
-    /**
-     * Check if the image is liked by a specific user.
-     */
-    public function likedBy($userId)
+    public function category()
     {
-        return $this->likes->contains('user_id', $userId);
+        return $this->belongsTo(Category::class);
+    }
+
+    public function setStatus($status)
+    {
+        $this->status = $status;
+        $this->save();
+    }
+
+    public function publish()
+    {
+        $this->setStatus('published');
+    }
+
+    public function markAsDraft()
+    {
+        $this->setStatus('draft');
+    }
+
+    public function publishIfLikesReached($minLikes)
+    {
+        if ($this->likes_count >= $minLikes) {
+            $this->publish();
+        }
+    }
+
+    public function scopeByStatus($query, $status)
+    {
+        return $query->where('status', $status);
     }
 }

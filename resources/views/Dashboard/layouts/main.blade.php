@@ -1,8 +1,6 @@
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
-
     <script src="https://cdn.ckeditor.com/ckeditor5/44.0.3/classic/ckeditor.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/classic/ckeditor.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
@@ -14,9 +12,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" integrity="sha384-y5HcDH9N2+7pDD1Hw3pPKWSItfHeY8JGTcPF3sAfFt8v6j0f0XxLd6c8UbcwYA3x" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-RjleDtrqUkaeaJ8XytncbTk5B4Qs/YyyfKwWYfXEPrEaWPMWSNEOfVEkPjKsBUWz" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-eS9DDJt1a7XXqiq8ohUgdg+l5T9rmXC5zTcSe5xS4A6r6OOkJXcpXVEdGi7d9C8X" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"  crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"  crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"  crossorigin="anonymous"></script>
+
+
 
     <style>
 
@@ -34,15 +34,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
 
 
-    <!-- Custom styles for this template -->
-    <link href="/css/dashboard.css" rel="stylesheet">
   </head>
   <body>
 
 
 
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
-
         <symbol id="door-closed" viewBox="0 0 16 16">
           <path d="M3 2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v13h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V2zm1 13h8V2H4v13z"/>
           <path d="M9 9a1 1 0 1 0 2 0 1 1 0 0 0-2 0z"/>
@@ -78,8 +75,6 @@
   </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/js/dashboard.js"></script>
-
 
 </body>
 </html>

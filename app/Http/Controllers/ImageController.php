@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Image;
-use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
+
 class ImageController extends Controller
 {
     /**
@@ -13,6 +15,7 @@ class ImageController extends Controller
      *
      * @return \Illuminate\View\View
      */
+
     public function index()
     {
         $images = Image::all();
@@ -37,22 +40,21 @@ class ImageController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'title' => 'required',
             'description' => 'required',
-            'url' => 'required|url',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:9048',
+            'category_id' => 'required|exists:categories,id',
         ]);
 
-        // Upload gambar
         $imagePath = $request->file('image')->store('public/images');
 
-        // Simpan informasi gambar ke database
         $image = new Image([
-            'title' => $request->input('title'),
-            'description' => $request->input('description'),
-            'url' => $request->input('url'),
-            'image_path' => $imagePath,
+            'title' => $validatedData['title'],
+            'description' => $validatedData['description'],
+            'url' => Storage::url($imagePath),
+            'category_id' => $validatedData['category_id'],
+            'status' => 'draft', // Set status as draft
         ]);
 
         $image->save();
@@ -92,13 +94,18 @@ class ImageController extends Controller
      */
     public function update(Request $request, Image $image)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'title' => 'required',
             'description' => 'required',
             'url' => 'required|url',
         ]);
 
-        $image->update($request->all());
+        // Delete old image file if new image URL is uploaded
+        if ($request->has('url') && $image->url !== $request->input('url')) {
+            $this->deleteImageFile($image->url);
+        }
+
+        $image->update($validatedData);
 
         return redirect()->route('gallery.index')->with('success', 'Image updated successfully');
     }
@@ -111,6 +118,9 @@ class ImageController extends Controller
      */
     public function destroy(Image $image)
     {
+        // Delete associated image file before deleting image model
+        $this->deleteImageFile($image->url);
+
         $image->delete();
 
         return redirect()->route('gallery.index')->with('success', 'Image deleted successfully');
@@ -149,17 +159,30 @@ class ImageController extends Controller
      */
     public function comment(Request $request, Image $image)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'comment' => 'required',
         ]);
 
-        $comment = new Comment([
-            'comment' => $request->input('comment'),
-            'user_id' => auth()->user()->id, // Assuming you have authentication
+        $image->comments()->create([
+            'comment' => $validatedData['comment'],
+            'user_id' => auth()->id(),
         ]);
 
-        $image->comments()->save($comment);
-
         return redirect()->back()->with('success', 'Comment added');
+    }
+
+    /**
+     * Delete the image file from storage.
+     *
+     * @param  string  $url
+     * @return void
+     */
+    protected function deleteImageFile($url)
+    {
+        $path = public_path($url);
+
+        if (File::exists($path)) {
+            File::delete($path);
+        }
     }
 }

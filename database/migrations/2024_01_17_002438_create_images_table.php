@@ -11,8 +11,11 @@ class CreateImagesTable extends Migration
         Schema::create('images', function (Blueprint $table) {
             $table->id();
             $table->string('title')->default('Untitled');
-            $table->text('description')->nullable(); // Menggunakan nullable() untuk 'description'
+            $table->text('description')->nullable();
             $table->string('url');
+            $table->foreignId('category_id')->constrained()->onDelete('cascade');
+            $table->enum('status', ['draft', 'published'])->default('draft'); // Menambahkan kolom status
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Menambahkan kolom user_id
             $table->timestamps();
         });
     }
@@ -22,4 +25,3 @@ class CreateImagesTable extends Migration
         Schema::dropIfExists('images');
     }
 }
-

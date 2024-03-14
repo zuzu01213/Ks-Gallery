@@ -5,16 +5,17 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\PricingController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ImageController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\CommentController;
-use App\Models\User;
-// Home Route
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ImageController; // Added this line for ImageController
+
+// Public routes
 Route::get('/', function () {
     return view('home.index');
 });
 
-// Authentication Routes
+// Authentication routes
 Route::middleware(['guest'])->group(function () {
     Route::get('/login', [LoginController::class, 'index'])->name('login');
     Route::post('/login', [LoginController::class, 'authenticate']);
@@ -22,49 +23,43 @@ Route::middleware(['guest'])->group(function () {
     Route::post('/register', [RegisterController::class, 'store']);
 });
 
-// Authenticated Routes
+// Authenticated routes
 Route::middleware(['auth'])->group(function () {
-    // Dashboard Routes
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    // Dashboard routes
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/dashboard/gallery/main', [DashboardController::class, 'main'])->name('dashboard.gallery.main');
+    Route::get('/dashboard/main', [DashboardController::class, 'main'])->name('dashboard.main');
     Route::post('/dashboard/upload', [DashboardController::class, 'upload'])->name('dashboard.upload');
+    Route::put('/dashboard/{id}', [DashboardController::class, 'update'])->name('dashboard.update');
+    Route::post('/dashboard/publish-draft', [DashboardController::class, 'publishDraft'])->name('dashboard.publishDraft');
+    Route::post('/dashboard/publish-selected', [DashboardController::class, 'publishSelected'])->name('dashboard.publishSelected');
+    Route::delete('/dashboard/destroy/{id}', [DashboardController::class, 'destroyImage'])->name('dashboard.destroyImage');
+    Route::delete('/dashboard/destroy-selected', [DashboardController::class, 'destroySelected'])->name('dashboard.destroySelected');
 
-    // Gallery Routes
+
+
+    // Gallery routes
     Route::prefix('/dashboard/gallery')->group(function () {
-        Route::get('/main', [DashboardController::class, 'main'])->name('dashboard.gallery.main');
+        Route::get('/', [DashboardController::class, 'galleryIndex'])->name('dashboard.gallery.index');
+        // Add more gallery routes here if needed
     });
 
-    // Logout Route
+    // Logout route
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+    // Like and comment routes
+    Route::post('/images/{image}/like', [LikeController::class, 'store'])->name('like.store');
+    Route::post('/images/{image}/comment', [CommentController::class, 'store'])->name('comment.store');
 });
 
-// Pricing Route
+// Pricing route
 Route::get('/pricing', [PricingController::class, 'index'])->name('pricing.index');
 
-// Resourceful Gallery Routes
+// Resourceful gallery routes
 Route::resource('gallery', ImageController::class)->only(['index', 'show', 'create', 'store', 'edit', 'update', 'destroy']);
 
-// Like and Comment Routes
-Route::post('/images/{image}/like', [LikeController::class, 'store'])->name('like');
-Route::post('/images/{image}/comment', [CommentController::class, 'store'])->name('comment');
-
-// Additional Dashboard Routes
-Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard/main', [DashboardController::class, 'main'])->name('dashboard.main');
-    Route::delete('/dashboard/destroy/{id}', [DashboardController::class, 'destroyImage'])->name('dashboard.destroy');
-    Route::put('/dashboard/{id}', [DashboardController::class, 'update'])->name('dashboard.update');
-
+// Category routes (for admin and operator only)
+Route::middleware(['role:admin,operator'])->group(function () {
+    Route::resource('categories', CategoryController::class)->except(['show']);
 });
-Route::middleware(['auth'])->group(function () {
-    // GET route to display categories management page
-    Route::get('/dashboard/categories', function () {
-        if (auth()->user()->isAdmin() || auth()->user()->isOperator()) {
-            $dashboardController = new DashboardController();
-            return $dashboardController->categories();
-        } else {
-            abort(403, 'Unauthorized');
-        }
-    })->name('dashboard.categories');
 
-    // POST route to store a new category
-    Route::post('/dashboard/categories', 'DashboardController@storeCategory')->name('dashboard.categories.store');
-});

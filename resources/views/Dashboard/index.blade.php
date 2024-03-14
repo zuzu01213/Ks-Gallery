@@ -9,7 +9,7 @@
         @if(auth()->user()->isAdmin())
         <span class="badge bg-danger text-dark me-2 p-2" style="font-size: 16px;border: 2px solid coral;">Admin Member</span>
     @elseif(auth()->user()->isOperator())
-        <span class="badge bg-primary text-dark me-2 p-2" style="font-size: 16px;border: 2px solid coral;">Operator</span>
+        <span class="badge bg-primary text-dark me-2 p-2" style="font-size: 16px;border: none;">Operator</span>
     @elseif(auth()->user()->isPremiumMember())
         <span class="badge bg-warning text-dark me-2 p-2" style="font-size: 16px;border: 2px solid coral;">Premium Member</span>
     @else
