@@ -24,9 +24,9 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center gap-2 {{Request::is('dashboard/posts')? 'active' : ''}}" href="/dashboard/gallery/index " style="color: white; transition: color 0.3s;" onmouseover="this.style.color='rgb(211, 73, 73)'" onmouseout="this.style.color='white'">
+                    <a class="nav-link d-flex align-items-center gap-2 {{Request::is('dashboard/posts')? 'active' : ''}}" href="/dashboard/gallery/collections/index " style="color: white; transition: color 0.3s;" onmouseover="this.style.color='rgb(211, 73, 73)'" onmouseout="this.style.color='white'">
                         <i class="bi bi-file-earmark"></i>
-                        Gallery
+                        Collections
                     </a>
                 </li>
             </ul>
@@ -46,9 +46,9 @@
                 </form>
             </ul>
             @if(auth()->user()->isAdmin() || auth()->user()->isOperator())
-                <h6 class="d-flex justify-content-between align-items-center px-3 mt-4 mb-1" style="color: #007bff; transition: color 0.3s;">
+                <h6 class="d-flex justify-content-between align-items-center px-3 mt-4 mb-1" style="color: brown; transition: color 0.3s;">
                     <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #007bff;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: brown;">
                             <path d="M17 20a4 4 0 1 1-8 0M12 2a2 2 0 1 1-2 2 2 2 0 0 1 2-2zm7 18v-1a5 5 0 0 0-10 0v1"></path>
                         </svg>
                         Administration
@@ -56,8 +56,8 @@
                 </h6>
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link d-flex align-items-center gap-2 {{ Request::is('dashboard/categories') ? 'active' : '' }}" href="{{ route('categories.store') }}" style="color: {{ Request::is('dashboard/categories') ? '#007bff' : 'white' }}; transition: color 0.3s;" onmouseover="this.style.color='rgb(0, 123, 255)';" onmouseout="this.style.color='{{ Request::is('dashboard/categories') ? '#007bff' : 'white' }}';">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-bar-graph" viewBox="0 0 16 16" style="color: #007bff;">
+                        <a class="nav-link d-flex align-items-center gap-2 {{ Request::is('dashboard/categories') ? 'active' : '' }}" href="{{ route('categories.store') }}" style="color: {{ Request::is('dashboard/categories') ? 'brown' : 'white' }}; transition: color 0.3s;" onmouseover="this.style.color='rgb(0, 123, 255)';" onmouseout="this.style.color='{{ Request::is('dashboard/categories') ? 'brown' : 'white' }}';">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-bar-graph" viewBox="0 0 16 16" style="color: brown;">
                                 <path d="M2 1v14a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V1H2zm5.5 2.5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm1 1.634a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm-2 1.366a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm1 1.634a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zM4 12a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.5-.5zm9-8a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0 0 1h2a.5.5 0 0 0 .5-.5zM8.5 9a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm1 3.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
                             </svg>
                             Post Categories

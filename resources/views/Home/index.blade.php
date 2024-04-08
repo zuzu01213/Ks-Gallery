@@ -12,73 +12,75 @@
   <body>
 
 <main>
-<div class="body-play">
-    <section class="py-5 text-center container"  >
-        <div class="row py-lg-5" style="padding-top: 4rem !important; padding-bottom: 2rem !important;" >
-            <div class="col-lg-10 col-md-8 mx-auto">
-        <h1 class="fw-light">K's Gallery</h1>
-        <p class="lead ">High-quality photos, videos, vectors, PSD, AI images, icons... to go from ideas to outstanding designs</p>
-        <p>
+ <div class="body-play">
+    <section class="py-5 text-center container">
+        <div class="row py-lg-5" style="padding-top: 4rem !important; padding-bottom: 2rem !important;">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <h1 class="fw-light">K's Gallery</h1>
+                <p class="lead">High-quality photos, videos, vectors, PSD, icons... to go from ideas to outstanding designs</p>
 
-            <div class="input-group mb-3">
-                <input type="text" class="form-control custom-input-height" placeholder="Search.." name="search" value="{{ request('search') }}">
-                <button class="btn btn-outline-secondary custom-btn" style="background-color: brown; color: white; border: brown; transition: background-color 0.3s ease-in-out;"
-                onmouseover="this.style.backgroundColor='rgb(72, 31, 72)'" onmouseout="this.style.backgroundColor='brown'" type="submit">Search</button>
+                <div class="input-group justify-content-center mb-3">
+                    <input type="text" class="form-control custom-input-height" style="width: 500px;" placeholder="Search.." name="search" value="{{ request('search') }}">
+                    <button class="btn btn-outline-secondary custom-btn" style="background-color: brown; color: white; border: brown; transition: background-color 0.3s ease-in-out;" onmouseover="this.style.backgroundColor='rgb(72, 31, 72)'" onmouseout="this.style.backgroundColor='brown'" type="submit">Search</button>
+                </div>
             </div>
-        </p>
-        <div class="container">
-            <ul class="menu">
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
-                        <div class="menu-img-container">
-                            <img src="{{ asset('images/vec.jpg') }}" alt="Photo Image" class="menu-img">
-                        </div>
-                    </a><a href=""><span class="menu-span">Vectors</span></a>
-                </li>
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
-                        <div class="menu-img-container">
-                            <img src="https://images.hdqwalls.com/wallpapers/gigi-hadid-vogue-4k-f0.jpg" alt="Photo Image" class="menu-img">
-                        </div>
-                    </a><a href=""><span class="menu-span">Photos</span></a>
-                </li>
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
-                        <div class="menu-img-container">
-                            <video id="hoverVideo" src="{{ asset('videos/video1.mp4') }}" alt="Video" class="menu-img" autoplay muted playsinline></video>
+                    <div class="container">
+                        <ul class="menu d-flex justify-content-center">
+                            <li class="menu-item">
+                                <a href="#" class="menu-link">
+                                    <div class="menu-img-container">
+                                        <img src="{{ asset('images/vec.jpg') }}" alt="Vector Image" class="menu-img">
+                                    </div>
+                                </a>
+                                <a href="#"><span class="menu-span">Vectors</span></a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="#" class="menu-link">
+                                    <div class="menu-img-container">
+                                        <img src="https://images.hdqwalls.com/wallpapers/gigi-hadid-vogue-4k-f0.jpg" alt="Photo Image" class="menu-img">
+                                    </div>
+                                </a>
+                                <a href="#"><span class="menu-span">Photos</span></a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="#" class="menu-link">
+                                    <div class="menu-img-container">
+                                        <video id="hoverVideo" src="{{ asset('videos/video1.mp4') }}" alt="Video" class="menu-img" autoplay muted playsinline></video>
+                                    </div>
+                                </a>
+                                <a href="#"><span class="menu-span">Videos</span></a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="#" class="menu-link">
+                                    <div class="menu-img-container">
+                                        <img src="{{ asset('images/psd1.jpg') }}" alt="PSD Image" class="menu-img">
+                                    </div>
+                                </a>
+                                <a href="#"><span class="menu-span">PSD</span></a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="#" class="menu-link">
+                                    <div class="menu-img-container">
+                                        <img src="{{ asset('images/temp.jpg') }}" alt="Template Image" class="menu-img">
+                                    </div>
+                                </a>
+                                <a href="#"><span class="menu-span">Templates</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 
-                        </div>
-                    </a>
-                    <a href=""><span class="menu-span">Videos</span></a>
-                </li>
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
-                        <div class="menu-img-container">
-                            <img src="{{ asset('images/psd1.jpg') }}" alt="Photo Image" class="menu-img">
-                        </div>
-                    </a><a href=""><span class="menu-span">PSD</span></a>
-                </li>
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
-                        <div class="menu-img-container">
-                            <img src="{{ asset('images/temp.jpg') }}" alt="Photo Image" class="menu-img">
-                        </div>
-                    </a><a href=""><span class="menu-span">Templates</span></a>
-                </li>
-            </ul>
+    <div class="container-premium" style="display: inline-block; width: 100%;">
+        <img class="image-banner" src="https://fps.cdnpk.net/autopromos/gam/banner-middle-new.svg" alt="Image banner" loading="lazy" decoding="async" data-nimg="1">
+        <div class="premium-content">
+            <p>Hundreds of ideas need hundreds of downloads, don’t they?</p>
+            <a href="/pricing/" class="premium-button">Go Premium</a>
         </div>
-      </div>
     </div>
-  </section>
-</div>
 
-<div class="container-premium">
-    <img class="image-banner" src="https://fps.cdnpk.net/autopromos/gam/banner-middle-new.svg" alt="Image banner" loading="lazy" decoding="async" data-nimg="1">
-    <div class="premium-content">
-      <p>Hundreds of ideas need hundreds of downloads, don’t they?</p>
-      <a href="#" class="premium-button">Go Premium</a>
-    </div>
-</div>
 <section class="designer-grid">
     <h2 style="font-weight: bold">Designers’ faves</h2>
     <p style="margin-bottom: 50px">Check out what’s getting the most olés on K's Gallery right now</p>

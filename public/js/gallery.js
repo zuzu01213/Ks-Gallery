@@ -34,24 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
         toggleDeleteAllButton();
     }
 
-    // Event listener for select options change
-    const selectOptions = document.getElementById('selectOptions');
-    const images = document.querySelectorAll('.col.mb-3');
-
-    selectOptions.addEventListener('change', function () {
-        const selectedValue = this.value;
-        images.forEach(function (image) {
-            if (selectedValue === 'all') {
-                image.style.display = 'block';
-            } else {
-                const index = parseInt(selectedValue);
-                const imageIndex = Array.from(images).indexOf(image) + 1;
-                image.style.display = imageIndex <= index ? 'block' : 'none';
-            }
-        });
-    });
-
-    // Function to toggle "Delete All" button visibility and handle deletion
+    // Function to toggle "Delete All" button visibility
     function toggleDeleteAllButton() {
         const deleteAllBtn = document.getElementById('deleteAllBtn');
         const checkboxes = document.querySelectorAll('.image-checkbox');
@@ -137,4 +120,81 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
+
+    // Event listener for select options change
+    const selectOptions = document.getElementById('selectOptions');
+    selectOptions.addEventListener('change', function () {
+        const selectedValue = this.value;
+        if (selectedValue === 'default') {
+            location.reload(); // Reload the page to reset pagination to default
+        } else {
+            // Update the pagination based on selected value
+            const url = new URL(window.location.href);
+            url.searchParams.set('perPage', selectedValue);
+            window.location.href = url.toString();
+        }
+    });
+
+    // Get total pages from the pagination links
+    const paginationLinks = document.querySelectorAll('.pagination .page-item');
+    const totalPages = paginationLinks.length - 2; // Exclude "Previous" and "Next" links
+
+    // Function to toggle pagination visibility
+    function togglePaginationVisibility(totalPages) {
+        const paginationItems = document.querySelectorAll('.pagination .page-item');
+        paginationItems.forEach(function (item, index) {
+            if (index < totalPages) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+
+    // Get the initial selected value
+    const initialSelectedValue = selectOptions.value;
+    const initialPerPage = parseInt(initialSelectedValue);
+
+    // Hide or show pagination based on initial perPage value
+    if (initialPerPage === 'all') {
+        togglePaginationVisibility(totalPages);
+    }
+
+    // Event listener for pagination links click
+    paginationLinks.forEach(function (link) {
+        link.addEventListener('click', function () {
+            const selectedValue = selectOptions.value;
+            const perPage = parseInt(selectedValue);
+
+            // Hide or show pagination based on the selected perPage value
+            if (perPage === 'all') {
+                togglePaginationVisibility(totalPages);
+            }
+        });
+    });
+});
+function toggleCheckbox() {
+    var checkboxContainer = document.getElementById("checkboxContainer");
+    checkboxContainer.style.display = "block";
+}
+var grid = document.querySelector('.grid');
+var masonry = new Masonry(grid, {
+    itemSelector: '.grid-item',
+    columnWidth: '.grid-sizer',
+    gutter: 20 // Adjust this value as needed
+});
+$(document).ready(function() {
+    // Select all image containers
+    var $imageContainers = $('.image-container');
+
+    // Loop through each image container
+    $imageContainers.each(function(index) {
+        // Generate random height for each image container
+        var minHeight = 200; // Minimum height for image container
+        var maxHeight = 400; // Maximum height for image container
+        var randomHeight = Math.floor(Math.random() * (maxHeight - minHeight + 1)) + minHeight;
+
+        // Set height for current image container
+        $(this).css('height', randomHeight + 'px');
+    });
 });

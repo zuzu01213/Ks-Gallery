@@ -15,7 +15,6 @@ class ImageController extends Controller
      *
      * @return \Illuminate\View\View
      */
-
     public function index()
     {
         $images = Image::all();
@@ -41,19 +40,21 @@ class ImageController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'title' => 'required',
             'description' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:9048',
             'category_id' => 'required|exists:categories,id',
+            'location' => 'nullable',
+            'camera' => 'nullable',
         ]);
 
         $imagePath = $request->file('image')->store('public/images');
 
         $image = new Image([
-            'title' => $validatedData['title'],
             'description' => $validatedData['description'],
             'url' => Storage::url($imagePath),
             'category_id' => $validatedData['category_id'],
+            'location' => $validatedData['location'],
+            'camera' => $validatedData['camera'],
             'status' => 'draft', // Set status as draft
         ]);
 
@@ -95,9 +96,10 @@ class ImageController extends Controller
     public function update(Request $request, Image $image)
     {
         $validatedData = $request->validate([
-            'title' => 'required',
             'description' => 'required',
             'url' => 'required|url',
+            'location' => 'nullable',
+            'camera' => 'nullable',
         ]);
 
         // Delete old image file if new image URL is uploaded

@@ -19,7 +19,7 @@
 }
 
 .like-container {
-    cursor: pointer;
+
     margin: 4px;
     transition: color 0.3s ease;
 }
@@ -45,9 +45,7 @@ right: 0;
 transform: translate(50%, -50%);
 }
 
-.swal2-confirm {
-cursor: pointer !important;
-}
+
 
 .glowing-dot::before {
 content: '';
@@ -131,7 +129,37 @@ border-top-color: white; /* Match the background color */
 }
 
 
-/* Apply styles to pagination links and spans */
-/* Styling pagination links and spans */
-/* Pagination container */
+/* Tambahkan efek vignette saat hover pada gambar */
+.custom-image {
+    transition: filter 0.3s ease-in-out;
+}
+
+.custom-image:hover {
+    filter: brightness(80%) contrast(120%) grayscale(10%);
+}
+
+/* Menghapus efek vignette pada label status */
+.status-label {
+    pointer-events: none;
+}
+/* Menyembunyikan ikon-ikon */
+/* Tombol-tombol defaultnya tidak ditampilkan */
+/* Initially hide profile, download, like, and add buttons */
+.user-profile,
+.download-button,
+.love-button,
+.button-container,
+.add-button {
+    display: none;
+}
+
+/* Display profile, download, like, and add buttons on image hover */
+.position-relative:hover .user-profile,
+.position-relative:hover .download-button,
+.position-relative:hover .love-button,
+.position-relative:hover .button-container,
+.position-relative:hover .add-button {
+    display: block;
+    cursor: pointer;
+}
 

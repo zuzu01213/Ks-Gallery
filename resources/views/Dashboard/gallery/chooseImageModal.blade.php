@@ -85,7 +85,7 @@
                 <div class="modal-body">
                     <h5>{{ $image->title }}</h5>
                     <img id="viewImage" class="img-fluid" src="{{ asset('storage/' . ($image->draft_image ? $image->draft_image : $image->url)) }}" style="border-radius: 4px; margin: 6px">
-                    <p><strong>Category:</strong> {{ $image->category->name }}</p> <!-- Menampilkan kategori -->
+                    <p><strong>Featured in :</strong> {{ $image->category->name }}</p> <!-- Menampilkan kategori -->
                 </div>
             </div>
         </div>

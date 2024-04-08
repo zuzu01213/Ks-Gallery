@@ -9,7 +9,7 @@ class Image extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'description', 'url', 'category_id', 'user_id', 'status'];
+    protected $fillable = ['description', 'tags', 'location', 'camera', 'url', 'category_id', 'user_id', 'status'];
 
 
     public function user()
