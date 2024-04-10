@@ -18,7 +18,7 @@
 <div class="row">
     <div class="col-md-6">
         <!-- Buttons for uploading images -->
-        <button id="userImagesButton" type="button" class="btn btn-warning mb-3" style="cursor: pointer; background-color: #116D6E; border: 1px solid #116D6E; ">
+        <button id="userImagesButton" type="button" class="btn btn-warning mb-2" style="cursor: pointer; background-color: #116D6E; border: 1px solid transparent; ">
             All Images ({{ $images->total() }} )
         </button>
         <!-- Available upload count -->
@@ -28,11 +28,11 @@
             $pagination = ceil($remainingUploads / 20); // Assuming each page has 20 uploads
         @endphp
 
-        <button type="button" class="btn btn-warning mb-3" style="cursor: text; background-color: #CD1818; border:1px solid #CD1818">Upload Available: {{ $remainingUploads }}</button>
+        <button type="button" class="btn btn-warning mb-2" style="cursor: text; background-color: #CD1818; border:1px solid transparent">Upload Available: {{ $remainingUploads }}</button>
 
         <!-- Button to trigger upload file modal -->
-        <button type="button" class="btn btn-gold mb-3" data-bs-toggle="modal" data-bs-target="{{ auth()->check() && auth()->user()->isBasicMember() && auth()->user()->images()->count() >= 20 ? '#upgradeModal' : '#chooseImageModal' }}">
-            <span class="text">Upload Files</span>
+        <button type="button" class="btn btn-gold mb-2" data-bs-toggle="modal" data-bs-target="{{ auth()->check() && auth()->user()->isBasicMember() && auth()->user()->images()->count() >= 20 ? '#upgradeModal' : '#chooseImageModal' }}">
+            <span class="text" >Upload Files</span>
             <span class="icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-upload" viewBox="0 0 16 16">
                     <path d="M8.794 1.354a.5.5 0 0 1 .5.5V12a.5.5 0 1 1-1 0V1.854a.5.5 0 0 1 .5-0zM0 14a.5.5 0 0 1 .5-.5h15a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5z"/>

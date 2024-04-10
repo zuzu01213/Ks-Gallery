@@ -8,9 +8,7 @@
             <li class="nav-item {{ request()->is('home', '/') ? 'active' : '' }}">
                 <a class="nav-link" href="/">Home</a>
             </li>
-            <li class="nav-item {{ request()->is('about') ? 'active' : '' }}">
-                <a class="nav-link" href="/about">About Creator</a>
-            </li>
+
             <li class="nav-item {{ request()->is('posts') ? 'active' : '' }}">
                 <a class="nav-link" href="/posts">All Image</a>
             </li>
@@ -20,9 +18,7 @@
             <li class="nav-item {{ request()->is('') ? 'active' : '' }}">
                 <a class="nav-link" href="/pricing/">Categories</a>
             </li>
-            <li class="nav-item {{ request()->is('pricing') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('pricing.index') }}">Premium</a>
-            </li>
+
             <li class="nav-item {{ request()->is('my-project') ? 'active' : '' }}">
                 <a class="nav-link" href="http://unpas-laravel.test" target="_blank">K's Blog</a>
             </li>
@@ -30,6 +26,11 @@
         </ul>
 
             <ul class="navbar-nav ms-auto">
+                <li class="nav-item {{ request()->is('pricing') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('pricing.index') }}">Pricing<svg class="O8Tgj" width="16" height="16" viewBox="0 0 24 24" version="1.1" aria-labelledby="+" aria-hidden="false"><desc lang="en-US">Plus sign for Unsplash+</desc><title id="+">+</title>
+                        <path d="M11.281 8.3H8.156V3.125L11.281 1v7.3Zm.316 4.05H4.955V7.868L1.5 10.636v4.55h6.656V22h4.713l3.552-2.84h-4.824v-6.81Zm4.24 0v2.835h4.587l2.911-2.834h-7.497Z"></path>
+                    </svg></a>
+                </li>
                 @auth
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -158,11 +159,23 @@
     .nav.nav-underline.justify-content-around a:hover {
         color: lightcyan; /* Change link text color on hover to lightcyan or any color you prefer */
     }
+    /* Warna default ikon */
+
+/* Warna ikon saat dihover */
+.nav-item .nav-link:hover .O8Tgj {
+    fill: rgb(211, 73, 73); /* Ganti dengan warna saat hover yang Anda inginkan */
+}
+
+/* Warna ikon saat aktif */
+.nav-item.active .nav-link .O8Tgj {
+    fill: gold; /* Ganti dengan warna saat aktif yang Anda inginkan */
+}
+
 </style>
 @if(request()->is('pricing'))
     <style>
          nav {
-        background-color: #132f38;
+        background-color: black;
         transition: background-color 0.3s ease;
     }
     </style>
