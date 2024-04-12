@@ -80,3 +80,54 @@ input[type="radio"][value="yearly"] {
     border: 1px solid #ccc; /* Menambahkan sedikit batas pada opsi "Yearly 66% off" */
     padding: 20px ; /* Menambahkan ruang di sekitar teks */
 }
+.long-container {
+
+    background-color: black;
+    border-radius: 16px;
+    border-bottom-left-radius: 0px;
+    -webkit-font-smoothing: antialiased;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.6;
+
+}
+
+.long-container {
+    display: flex; /* Menggunakan flexbox */
+}
+
+header {
+    flex: 0 0 auto; /* Header tidak fleksibel, tetap di tempatnya */
+    padding: 80px;
+}
+
+.img-long-container {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden; /* Untuk memotong konten gambar yang melebihi panjang kontainer */
+}
+
+.img-long-container img {
+    max-width: 100%; /* Menghindari gambar melebihi lebar kontainer */
+    height: auto; /* Menjaga aspek rasio gambar */
+    margin: 0 10px 10px 0; /* Margin antara gambar */
+
+}
+
+/* Atau jika ingin menggunakan grid */
+.img-long-container {
+    display: grid; /* Menggunakan grid */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Mengatur jumlah kolom dan lebar minimum maksimum */
+    gap: 10px; /* Jarak antara gambar */
+}
+.triple-container {
+    grid-template:
+        "a a" 548px
+        "b c" 657px/1fr 1fr;
+        gap: 24px;
+
+}
+.short-container-1 {
+    background-color: blue;
+}

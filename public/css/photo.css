@@ -1,0 +1,58 @@
+.modal-header {
+    border-bottom: none; /* Hide the header line */
+}
+
+.action-button {
+    border: 1px solid #eeeeee; /* Add a border to the right side of the action buttons */
+}
+
+.action-button:last-child {
+    border-right: none; /* Remove the border from the last action button */
+}
+
+.modal-dialog {
+    max-width: 100%; /* Atur lebar maksimum modal agar mengisi lebar layar */
+    margin: 1.75rem auto; /* Sesuaikan margin modal */
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem; /* Atur padding sesuai kebutuhan */
+    border-top: none; /* Menghilangkan garis atas */
+}
+
+.float-left {
+    display: inline-block; /* Mengatur elemen menjadi inline-block */
+}
+
+.float-right {
+    display: inline-block; /* Mengatur elemen menjadi inline-block */
+}
+.medium-zoom-overlay {
+    z-index: 1060 !important; /* Atur z-index yang lebih tinggi dari modal */
+    position: fixed; /* Pastikan overlay zoom berada di atas elemen modal */
+    top: 0; /* Tentukan posisi overlay zoom */
+    left: 0; /* Tentukan posisi overlay zoom */
+    right: 0; /* Tentukan posisi overlay zoom */
+    bottom: 0; /* Tentukan posisi overlay zoom */
+}
+/* Menyembunyikan latar belakang modal saat zoom aktif */
+.modal-content.zoom-active {
+    background: transparent !important;
+    box-shadow: none !important;
+}
+/* Menyembunyikan footer modal saat zoom aktif */
+.modal-footer.zoom-active {
+    display: none !important;
+}
+/* Mengatur gambar di dalam modal untuk mengisi layar penuh */
+.modal-body img {
+    width: 100%;
+    height: auto;
+}
+body.modal-open {
+overflow: hidden;
+}
+
