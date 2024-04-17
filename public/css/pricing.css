@@ -9,9 +9,10 @@
     padding: 50px; /* Spasi dalam hero-section */
     padding-right: 10px;
     padding-left: 10px;
-    margin-top: 15px;
     text-align: left;
     border-radius: 10px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
 }
 
 /* Styling for the text container */
@@ -128,6 +129,228 @@ header {
         gap: 24px;
 
 }
+.short-container {
+    margin-top: 50px;
+    margin-inline: auto;
+    max-width: 1300px;
+    width: 100%;
+    display: flex;
+}
 .short-container-1 {
-    background-color: blue;
+    background-color: black;
+    max-width: 637px;
+    width: 100%;
+    max-height: 657px;
+    height: 100%;
+    -webkit-font-smoothing: antialiased;
+    grid-area: b;
+    overflow: hidden;
+    display: block;
+    unicode-bidi: isolate;
+}
+.short-container-1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    display: flex;
+    transform: rotate(-5deg);
+}
+
+.image-item img {
+    max-width: 100%;
+    height: auto;
+    transform: rotate(-5deg);
+}
+
+
+.switch-wrapper {
+    text-align: center;
+    justify-content: center;
+    position: relative;
+    display: inline-flex;
+    padding: 4px;
+    padding-right: 10px;
+    padding-left: 24px;
+    margin-bottom: 40px;
+    border-radius: 30px;
+    background-color: #f6f6f6;
+    border: 1px solid brown;
+  }
+
+  .switch-wrapper [type="radio"] {
+    position: absolute;
+    left: -9999px;
+  }
+
+  .switch-wrapper [type="radio"]:checked#monthly ~ label[for="monthly"],
+  .switch-wrapper [type="radio"]:checked#yearly ~ label[for="yearly"] {
+    color: var(--white);
+  }
+
+  .switch-wrapper [type="radio"]:checked#monthly ~ label[for="monthly"]:hover,
+  .switch-wrapper [type="radio"]:checked#yearly ~ label[for="yearly"]:hover {
+    background: transparent;
+  }
+
+  .switch-wrapper
+    [type="radio"]:checked#monthly
+    + label[for="yearly"]
+    ~ .highlighter {
+    transform: none;
+  }
+
+  .switch-wrapper
+    [type="radio"]:checked#yearly
+    + label[for="monthly"]
+    ~ .highlighter {
+    transform: translateX(100%);
+  }
+
+  .switch-wrapper label {
+    font-size: 16px;
+    z-index: 1;
+    min-width: 100px;
+    line-height: 32px;
+    cursor: pointer;
+    border-radius: 30px;
+    color: #767676;
+    transition: color 0.25s ease-in-out;
+  }
+
+  .switch-wrapper label:hover {
+    color:  black;
+  }
+
+  .switch-wrapper .highlighter {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: calc(50% - 4px);
+    height: calc(100% - 8px);
+    border-radius: 30px;
+    background: white;
+    transition: transform 0.25s ease-in-out;
+  }
+
+  .card-wrapper {
+    max-width: 450px;
+    padding: 32px;
+    padding-bottom: 16px;
+    border: 1.6px solid #eee;
+    border-radius: 24px;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .green-text {
+    background-color: #3cb46e1a;
+    border-radius: 36px;
+    color: #2e9157;
+    display: inline-flex;
+    padding: 4px 12px; /* Adding border radius for rounded corners */
+    font-size: 14px;
+    line-height: 1.4285714286;
+    font-weight: 500;
+}
+.dollar-cross, .dollar {
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 1.0833333333;
+    color: #d1d1d1;
+    text-decoration: line-through;
+}
+.dollar {
+    text-decoration: none;
+    color: black;
+    padding-left: 5px;
+}
+
+.checkmark {
+    display: flex;
+    align-items: center;
+
+}
+.toggle-buttons {
+    display: flex;
+    justify-content: center; /* Untuk mengatur posisi di tengah */
+    width: 100%; /* Sesuaikan lebar sesuai kebutuhan Anda */
+    max-width: 700px; /* Maksimum lebar yang diizinkan */
+    margin: 0 auto; /* Untuk membuatnya berada di tengah */
+
+
+}
+
+
+.toggle-buttons button {
+    background-color: transparent;
+    border: none;
+    color: #767676;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    transition: color 0.3s ease;
+}
+
+.toggle-buttons button:hover {
+    color: #111;
+}
+
+.toggle-buttons button.active {
+    color: #000;
+    border-bottom: 2px solid #000;
+}
+.image-generated-container {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(260px, 340px));
+    gap: 24px; /* Gunakan gap untuk menambahkan jarak antar gambar */
+    justify-content: center;
+    max-width: 1385px;
+    max-height: 516px;
+    margin: 100px auto 0; /* Gunakan auto untuk membuat kontainer berada di tengah */
+    padding: 0 58px; /* Gunakan padding untuk memberi ruang di sisi kontainer */
+}
+
+.image-generated-container img {
+    width: 100%; /* Gambarkan gambar penuh lebar kontainer */
+    height: auto; /* Biarkan tinggi otomatis untuk menjaga aspek rasio */
+    border-radius: 16px;
+    object-fit: cover;
+}
+
+
+.first-type {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 48px;
+}
+
+.first-type,
+.second-type {
+    display: grid;
+    grid-template-columns: 1fr; /* Menetapkan satu kolom untuk kedua jenis */
+    gap: 24px; /* Jarak antara gambar di dalam grid */
+}
+
+.first-type img,
+.second-type img {
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+}
+
+/* Menyesuaikan tinggi gambar pertama dan kedua */
+.first-type img:first-child {
+    height: 300px; /* Tinggi gambar pertama */
+}
+
+.second-type img:first-child {
+    height: 200px; /* Tinggi gambar kedua */
 }

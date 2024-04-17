@@ -133,7 +133,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-shield-check-fill me-1" viewBox="0 0 16 16">
                     <path fill="grey" d="M5.396 11.912l-3.103 1.344a.5.5 0 0 1-.593-.804L4.958 8 2.7 5.548a.5.5 0 0 1 .297-.832l3.556-.517L7.83 1.52a.5.5 0 0 1 .34-.27l2.775-.693a.5.5 0 0 1 .564.802l-1.74 2.17 3.53.967a.5.5 0 0 1 .29.823l-3.064 3.1a.5.5 0 0 1-.386.132l-2.573-.643-1.705 2.122a.5.5 0 0 1-.802-.562l.78-.978z"/>
                 </svg>
-                <span class="font-weight-bold me-3" style="color: grey; font-size: 16px;">Free to use under the K's Gallery License</span>
+                <span class="font-weight-bold me-3" style="color: grey; font-size: 16px;">Free to use under the Escapism License</span>
             </div>
             <p style="font-size: 28px; font-weight: bold; margin-left: 14px; margin-top:50px">Related Images </p>
             <div>

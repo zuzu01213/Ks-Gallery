@@ -7,10 +7,10 @@
     <div class="container__child signup__thumbnail">
       <div class="thumbnail__logo">
 
-        <h1 class="logo__text">K's</h1>
+        <h1 class="logo__text">Escapism</h1>
       </div>
       <div class="thumbnail__content text-center">
-        <h1 class="heading heading--primary">Welcome to K's,</h1>
+        <h1 class="heading heading--primary">Welcome to Escapism,</h1>
         <div class="james-bond-image">
 
         </div>

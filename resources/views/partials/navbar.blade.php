@@ -1,5 +1,6 @@
+
 <nav class="navbar navbar-expand-lg fixed-top hide">
-    <a class="navbar-brand" href="/">K's</a>
+    <a class="navbar-brand" href="/">Escapism</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -16,18 +17,18 @@
                 <a class="nav-link" href="/categories/">All Videos</a>
             </li>
             <li class="nav-item {{ request()->is('') ? 'active' : '' }}">
-                <a class="nav-link" href="/pricing/">Categories</a>
+                <a class="nav-link" href="/categrories/">Categories</a>
             </li>
 
             <li class="nav-item {{ request()->is('my-project') ? 'active' : '' }}">
-                <a class="nav-link" href="http://unpas-laravel.test" target="_blank">K's Blog</a>
+                <a class="nav-link" href="http://unpas-laravel.test" target="_blank">Escapism Blog</a>
             </li>
 
         </ul>
 
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item {{ request()->is('pricing') ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('pricing.index') }}">Pricing<svg class="O8Tgj" width="16" height="16" viewBox="0 0 24 24" version="1.1" aria-labelledby="+" aria-hidden="false"><desc lang="en-US">Plus sign for Unsplash+</desc><title id="+">+</title>
+                    <a class="nav-link" href="{{ route('pricing.index') }}">Escapism<svg class="O8Tgj" width="16" height="16" viewBox="0 0 24 24" version="1.1" aria-labelledby="+" aria-hidden="false"><desc lang="en-US"></desc><title id="+">+</title>
                         <path d="M11.281 8.3H8.156V3.125L11.281 1v7.3Zm.316 4.05H4.955V7.868L1.5 10.636v4.55h6.656V22h4.713l3.552-2.84h-4.824v-6.81Zm4.24 0v2.835h4.587l2.911-2.834h-7.497Z"></path>
                     </svg></a>
                 </li>
@@ -175,7 +176,7 @@
 @if(request()->is('pricing'))
     <style>
          nav {
-        background-color: black;
+        background-color: transparent;
         transition: background-color 0.3s ease;
     }
     </style>

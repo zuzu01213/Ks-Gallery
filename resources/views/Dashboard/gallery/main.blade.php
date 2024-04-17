@@ -9,6 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script>
     <script src="{{ asset('js/gallery.js') }}"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="icon" href="/images/internet.png" type="image/png">
 </head>
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-4 pb-2 mb-3 border-bottom">
@@ -18,7 +19,7 @@
 <div class="row">
     <div class="col-md-6">
         <!-- Buttons for uploading images -->
-        <button id="userImagesButton" type="button" class="btn btn-warning mb-2" style="cursor: pointer; background-color: #116D6E; border: 1px solid transparent; ">
+        <button id="userImagesButton" type="button" class="btn btn mb-2" style=" border:1px solid brown" style="cursor: pointer;  ">
             All Images ({{ $images->total() }} )
         </button>
         <!-- Available upload count -->
@@ -28,10 +29,10 @@
             $pagination = ceil($remainingUploads / 20); // Assuming each page has 20 uploads
         @endphp
 
-        <button type="button" class="btn btn-warning mb-2" style="cursor: text; background-color: #CD1818; border:1px solid transparent">Upload Available: {{ $remainingUploads }}</button>
+        <button type="button" class="btn btn mb-2" style=" border:1px solid brown" style="cursor: text;  border:1px solid transparent">Upload Available: {{ $remainingUploads }}</button>
 
         <!-- Button to trigger upload file modal -->
-        <button type="button" class="btn btn-gold mb-2" data-bs-toggle="modal" data-bs-target="{{ auth()->check() && auth()->user()->isBasicMember() && auth()->user()->images()->count() >= 20 ? '#upgradeModal' : '#chooseImageModal' }}">
+        <button type="button" class="btn btn mb-2" style=" border:1px solid brown" data-bs-toggle="modal" data-bs-target="{{ auth()->check() && auth()->user()->isBasicMember() && auth()->user()->images()->count() >= 20 ? '#upgradeModal' : '#chooseImageModal' }}">
             <span class="text" >Upload Files</span>
             <span class="icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-upload" viewBox="0 0 16 16">
@@ -75,17 +76,17 @@
         <!-- Form to revert to draft -->
         <form class="d-inline-block ml-2" >
             @csrf
-            <button type="submit" class="btn btn-secondary mb-3" style="border: none; color: white;">
+            <button type="submit" class="btn btn mb-3" style=" border:1px solid brown" style="border: none; color: white;">
                 Revert to Draft
             </button>
         </form>
-        <button type="button" class="btn btn-secondary mb-3" style="border: none; background-color: #116D6E;" onclick="toggleCheckbox()">
+        <button type="button" class="btn btn mb-3" style=" border:1px solid brown" style="border: none; " onclick="toggleCheckbox()">
             Select
         </button>
         <!-- Form to publish with glowing dot -->
         <form class="d-inline-block" >
             @csrf
-            <button type="submit" class="btn btn-warning mb-3" style="background-color: navy; border: none; color: white; position: relative;">
+            <button type="submit" class="btn btn mb-3" style=" border:1px solid brown" style=" border: none; color: white; position: relative;">
                 Publish
                 <span class="glowing-dot"></span>
             </button>
@@ -182,7 +183,7 @@
             <li class="page-item">
                 <a class="page-link" href="{{ $images->previousPageUrl() . '&perPage=' . $images->perPage() }}" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
-                    <span class="sr-only">Previous</span>
+
                 </a>
             </li>
         @endif
@@ -197,13 +198,49 @@
             <li class="page-item">
                 <a class="page-link" href="{{ $images->nextPageUrl() . '&perPage=' . $images->perPage() }}" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
-                    <span class="sr-only">Next</span>
+
                 </a>
             </li>
         @endif
     </ul>
 </div>
+<style>
+   .pagination li a,
+.pagination li span {
+    display: block;
+    text-decoration: none;
+    color: #fff;
+    background-color: black;
+    transition: background-color 0.3s ease;
+}
 
+.pagination li.active a,
+.pagination li.active span {
+    background-color: #116D6E;
+    color: white;
+    border: none; /* Remove border when active */
+}
+
+.pagination li a:hover {
+    background-color: #22092C;
+    color: white;
+    opacity: 0.8;
+}
+
+/* Menghilangkan efek fokus pada tautan yang aktif */
+.pagination li.active a:focus,
+.pagination li.active span:focus {
+    outline: none;
+}
+
+.pagination .page-item.disabled .page-link {
+    background-color: black;
+    color: white;
+    border-color: black;
+}
+
+
+</style>
 @else
     <p class="text-center" style="font-size: 1.5rem;">No images found.</p>
 @endif

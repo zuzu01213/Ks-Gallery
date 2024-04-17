@@ -3,12 +3,13 @@
     background-color: #132f38 !important;
     color: white !important;
     transition: filter 0.3s ease-in-out; /* Added transition property for smooth effect */
-}
-footer{
-    background-color: #132f38 !important;
+
 }
 .body-play:hover {
     filter: brightness(70%) grayscale(30%);
+}
+footer{
+    background-color: #132f38 !important;
 }
   .bd-placeholder-img {
     font-size: 1.125rem;
@@ -49,7 +50,7 @@ footer{
 }
 
 .container {
-    padding-top: 60px;
+    padding-top: 65px;
 }
 
 .menu {
@@ -475,23 +476,26 @@ margin-bottom: 10px;
     .premium-ad-container.show {
         opacity: 1; /* Tampilkan container dengan transisi yang mulus */
     }
+.premium-ad-content {
+    display: flex;
+    flex-direction: row; /* Change the flex direction to row */
+    align-items: center;
+    text-align: center;
+}
 
-    .premium-ad-content {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
+.ad-text-content {
+    flex: 1; /* Let the text content take up remaining space */
+    text-align: left;
+    padding-right: 10px; /* Add some spacing between text and image */
+}
 
-    .ad-text-content {
-        text-align: left;
-    }
+.premium-ad-image {
+    max-width: 100px; /* Adjust image width as needed */
+    height: auto;
+    border-radius: 8px;
+    overflow: hidden;
+}
 
-    .premium-ad-image {
-        max-width: 100%;
-        height: auto;
-        border-radius: 8px;
-    }
 
     .premium-button {
         background-color: #ffcc00;
@@ -507,4 +511,35 @@ margin-bottom: 10px;
 
     .premium-button:hover {
         background-color: #ffc200;
+    }
+
+    ul {
+        display: flex;
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .ul-search {
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        display: flex;
+        align-items: center;
+        padding: 5px 10px; /* Mengurangi padding untuk membuat item lebih kecil */
+        margin: 5px; /* Memberikan jarak di sekitar setiap item */
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 14px; /* Mengurangi ukuran font */
+    }
+
+    .ul-search:hover {
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    .ul-search svg {
+        margin-right: 5px; /* Mengurangi margin untuk membuat item lebih kecil */
+        width: 14px; /* Mengatur lebar ikon */
+        height: 14px; /* Mengatur tinggi ikon */
+    }
+    .ul-search svg path {
+        fill: white; /* Make the SVG white */
     }
