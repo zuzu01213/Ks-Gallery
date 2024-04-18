@@ -189,8 +189,105 @@
                 <button class="toggle-button" data-category="business">Business</button>
             </div>
             @include('pricing.image-generate')
+            <div class="faq-container" style="display: grid; grid-template-columns: 1fr 750px;">
+                <section>
+                    <header class="faq-header">
+                        <h3 style="font-weight: bold; font-size:42px">Frequently asked questions</h3>
+                        <p class="mb-0" style="font-size:20px">Haven’t found what you’re looking for?</p>
+                        <p style="font-size:20px">Try our Help Center — we’re here to help.</p>
+                    </header>
+                </section>
+
+                <section style="float: right;margin-right:100px">
+
+                    <details id="faq-details" style="border-bottom: 1px solid black;">
+                        <summary onclick="toggleRotation(event)" style="display: flex; justify-content: space-between; align-items: center;">What is Escapism+?
+                            <svg class="wbX6M ETXji" width="24" height="24" viewBox="0 0 24 24" version="1.1" aria-hidden="false" id="chevron-down">
+                                <desc lang="en-US">Chevron down</desc>
+                                <path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41Z"></path>
+                            </svg>
+                        </summary>
+                        <p>
+                            Escapism+ is a subscription-based content provider that gives you access to additional beautiful images, with no download cap. Plus members get access to unique images, royalty-free usage, and expanded legal protections.
+                        </p>
+                    </details>
+
+                    <details id="faq-details" style="border-bottom: 1px solid black;">
+                        <summary onclick="toggleRotation(event)" style="display: flex; justify-content: space-between; align-items: center;">How do I sign up for a Escapism+ subscription?
+                            <svg class="wbX6M ETXji" width="24" height="24" viewBox="0 0 24 24" version="1.1" aria-hidden="false" id="chevron-down">
+                                <desc lang="en-US">Chevron down</desc>
+                                <path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41Z"></path>
+                            </svg>
+                        </summary>
+                        <p>
+                            Signing up for a subscription is simple. Click on the 'Get Escapism+' button on this page!
+                        </p>
+                    </details>
+
+                    <details id="faq-details" style="border-bottom: 1px solid black;">
+                        <summary onclick="toggleRotation(event)" style="display: flex; justify-content: space-between; align-items: center;">Can I pause, deactivate or reactivate my subscription?
+                            <svg class="wbX6M ETXji" width="24" height="24" viewBox="0 0 24 24" version="1.1" aria-hidden="false" id="chevron-down">
+                                <desc lang="en-US">Chevron down</desc>
+                                <path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41Z"></path>
+                            </svg>
+                        </summary>
+                        <p>
+                            You have the freedom to change your plan or cancel your next subscription renewal online at any time. This can be done by going to your Account Settings and clicking 'Manage my subscription'.
+                        </p>
+                    </details>
+
+                    <details id="faq-details" style="border-bottom: 1px solid black;">
+                        <summary onclick="toggleRotation(event)" style="display: flex; justify-content: space-between; align-items: center;">How can I use the images? Are there any restrictions?
+                            <svg class="wbX6M ETXji" width="24" height="24" viewBox="0 0 24 24" version="1.1" aria-hidden="false" id="chevron-down" style="margin-left: auto;">
+                                <desc lang="en-US">Chevron down</desc>
+                                <path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41Z"></path>
+                            </svg>
+                        </summary>
+                        <p>
+                            All Escapism+ images are model and property released and are backed by Escapism+ Protection.
+                        </p>
+                    </details>
+
+                    <details id="faq-details" style="border-bottom: 1px solid black;">
+                        <summary onclick="toggleRotation(event)" style="display: flex; justify-content: space-between; align-items: center;">Will I be charged in my local currency?
+                            <svg class="wbX6M ETXji" width="24" height="24" viewBox="0 0 24 24" version="1.1" aria-hidden="false" id="chevron-down">
+                                <desc lang="en-US">Chevron down</desc>
+                                <path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41Z"></path>
+                            </svg>
+                        </summary>
+                        <p>
+                            If you’re based in the United States, Canada, the United Kingdom or the European Union, yes. For all other regions, you will be charged in either euros or US dollars.
+                        </p>
+                    </details>
+
+                    <details id="faq-details" style="border-bottom: 1px solid black;">
+                        <summary onclick="toggleRotation(event)" style="display: flex; justify-content: space-between; align-items: center;">Can I share my subscription with someone else?
+                            <svg class="wbX6M ETXji" width="24" height="24" viewBox="0 0 24 24" version="1.1" aria-hidden="false" id="chevron-down">
+                                <desc lang="en-US">Chevron down</desc>
+                                <path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41Z"></path>
+                            </svg>
+                        </summary>
+                        <p>
+                            No, the subscription is for a single-user license only. Only the owner of the account has the right to use the image. A company can have an account, but it is still a single seat-license, meaning only 1 person can download and select content/use the content at a time, and it cannot be stored on a DAM for broad sharing rights.
+                        </p>
+                    </details>
+                </section>
+            </div>
+
         </div>
     </div>
+    <footer style="background-color: #132f38; color: white; text-align: center; text-lg-start;">
+
+
+        <!-- Grid container -->
+
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: black;">
+          © 2024 Copyright:
+          <a style="color: brown" >Escapism</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
 </body>
 
 <script>
@@ -220,9 +317,9 @@
         });
     });
 });
-// Simulated image URLs for each category
-
-
-
+function toggleRotation(event) {
+        var icon = event.target.querySelector('.ETXji');
+        icon.classList.toggle('rotate');
+    }
 </script>
 </html>

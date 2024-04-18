@@ -306,51 +306,48 @@ header {
     color: #000;
     border-bottom: 2px solid #000;
 }
-.image-generated-container {
+
+.faq-header {
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.6;
+    display: block;
+    text-align: left;
+    padding: 120px;
+    padding-right: 0px;
+    padding-top: 20px;
+
+}
+.faq-container {
+
+    padding-block: 120px;
     display: grid;
-    grid-template-columns: repeat(5, minmax(260px, 340px));
-    gap: 24px; /* Gunakan gap untuk menambahkan jarak antar gambar */
-    justify-content: center;
-    max-width: 1385px;
-    max-height: 516px;
-    margin: 100px auto 0; /* Gunakan auto untuk membuat kontainer berada di tengah */
-    padding: 0 58px; /* Gunakan padding untuk memberi ruang di sisi kontainer */
-}
-
-.image-generated-container img {
-    width: 100%; /* Gambarkan gambar penuh lebar kontainer */
-    height: auto; /* Biarkan tinggi otomatis untuk menjaga aspek rasio */
-    border-radius: 16px;
-    object-fit: cover;
-}
-
-
-.first-type {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 48px;
-}
-
-.first-type,
-.second-type {
-    display: grid;
-    grid-template-columns: 1fr; /* Menetapkan satu kolom untuk kedua jenis */
-    gap: 24px; /* Jarak antara gambar di dalam grid */
-}
-
-.first-type img,
-.second-type img {
+    margin-inline: auto;
+    max-width: 100%;
     width: 100%;
-    height: auto;
-    border-radius: 16px;
+    background-color: #fafafa;
+    margin-top: 120px;
+}
+.rotate {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease; /* Smooth transition */
+}
+section {
+    text-align: left;
+}
+summary {
+    font-size: 21px;
+    align-items: center;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    list-style: none;
+
 }
 
-/* Menyesuaikan tinggi gambar pertama dan kedua */
-.first-type img:first-child {
-    height: 300px; /* Tinggi gambar pertama */
-}
-
-.second-type img:first-child {
-    height: 200px; /* Tinggi gambar kedua */
+details {
+    padding-top: 16px;
+    padding-bottom: 16px;
 }

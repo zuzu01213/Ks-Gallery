@@ -94,7 +94,7 @@
             <a href="/pricing/" class="premium-button">Go Premium</a>
         </div>
     </div>
-    <section class="designer-grid">
+    {{-- <section class="designer-grid">
         <h2 style="font-weight: bold">Designers’ faves</h2>
         <p style="margin-bottom: 50px">Check out what’s getting the most olés on Escapism right now</p>
         <div class="gallery">
@@ -111,12 +111,7 @@
                 </div>
             </figure>
             <figure class="gallery__item gallery__item--3">
-                <video controls loop muted preload="auto" playsinline autoplay loading="lazy">
-                    <source src="videos/jade.mp4" type="video/mp4">
-                </video>
-                <div class="banner">
-                    <i class="fas fa-play"></i>
-                </div>
+                <img src="images/jade.png" alt="Gallery image 2" class="gallery__img" loading="lazy">
                 <div class="figcaption-container">
                     <figcaption style="font-size: 20px">Live Wallpaper</figcaption>
                 </div>
@@ -140,7 +135,7 @@
                 </div>
             </figure>
         </div>
-    </section>
+    </section> --}}
 
 </main>
 @auth
@@ -310,11 +305,11 @@
 
     <!-- Copyright -->
     <div class="text-center p-3" style="background-color: black;">
-      © 2020 Copyright:
+      © 2024 Copyright:
       <a style="color: brown" >Escapism</a>
     </div>
     <!-- Copyright -->
-  </footer>
+</footer>
 </body>
 
 

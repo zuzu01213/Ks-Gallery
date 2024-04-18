@@ -142,7 +142,7 @@
     font-size: 1.8rem;
     font-weight: bold;
     vertical-align: bottom;
-    color: rgb(52, 26, 52);
+    color: brown;
   }
 
   .thumbnail__content {

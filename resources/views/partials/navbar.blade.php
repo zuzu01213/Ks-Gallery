@@ -173,15 +173,4 @@
 }
 
 </style>
-@if(request()->is('pricing'))
-    <style>
-         nav {
-        background-color: transparent;
-        transition: background-color 0.3s ease;
-    }
-    </style>
-
-@endif
-
-
 
